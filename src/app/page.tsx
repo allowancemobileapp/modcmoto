@@ -203,6 +203,33 @@ export default function Home() {
         </Button>
       </section>
 
+      <section className="bg-black py-10">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
+            <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-3 px-4 rounded-lg text-sm uppercase flex items-center justify-center gap-2">
+                <Instagram className="h-5 w-5" />
+                Instagram
+            </Button>
+            <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-3 px-4 rounded-lg text-sm uppercase flex items-center justify-center gap-2">
+                <Youtube className="h-5 w-5" />
+                Youtube
+            </Button>
+            <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-3 px-4 rounded-lg text-sm uppercase flex items-center justify-center gap-2">
+                <Share className="h-5 w-5" />
+                Tiktok
+            </Button>
+            <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-3 px-4 rounded-lg text-sm uppercase flex items-center justify-center gap-2">
+                <Facebook className="h-5 w-5" />
+                Facebook
+            </Button>
+            <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-3 px-4 rounded-lg text-sm uppercase flex items-center justify-center gap-2 sm:col-span-2 md:col-span-1">
+                <Ghost className="h-5 w-5" />
+                Snapchat
+            </Button>
+          </div>
+        </div>
+      </section>
+
       <section className="bg-black py-16">
         <div className="container mx-auto px-4">
           <Tabs defaultValue="stickers" className="w-full">
@@ -260,33 +287,6 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="bg-black py-10">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
-            <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-3 px-4 rounded-lg text-sm uppercase flex items-center justify-center gap-2">
-                <Instagram className="h-5 w-5" />
-                Instagram
-            </Button>
-            <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-3 px-4 rounded-lg text-sm uppercase flex items-center justify-center gap-2">
-                <Youtube className="h-5 w-5" />
-                Youtube
-            </Button>
-            <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-3 px-4 rounded-lg text-sm uppercase flex items-center justify-center gap-2">
-                <Share className="h-5 w-5" />
-                Tiktok
-            </Button>
-            <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-3 px-4 rounded-lg text-sm uppercase flex items-center justify-center gap-2">
-                <Facebook className="h-5 w-5" />
-                Facebook
-            </Button>
-            <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-3 px-4 rounded-lg text-sm uppercase flex items-center justify-center gap-2 sm:col-span-2 md:col-span-1">
-                <Ghost className="h-5 w-5" />
-                Snapchat
-            </Button>
-          </div>
-        </div>
-      </footer>
-      
       {showScrollTop && (
         <Button
           variant="ghost"
