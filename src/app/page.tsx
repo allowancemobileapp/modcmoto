@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Search, Instagram, Youtube, User, Menu, ShoppingCart, Facebook, Ghost, Share, ArrowUp } from "lucide-react";
+import { Search, Instagram, Youtube, User, Menu, ShoppingCart, Facebook, Ghost, Share, ArrowUp, AlertCircle } from "lucide-react";
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -13,6 +13,14 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 
 const HelmetLogo = (props: React.SVGProps<SVGSVGElement>) => (
   <svg width="80" height="80" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
@@ -48,6 +56,10 @@ const HelmetLogo = (props: React.SVGProps<SVGSVGElement>) => (
       </clipPath>
     </defs>
   </svg>
+);
+
+const TiktokIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white" {...props}><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-2.43.05-4.84-.95-6.43-2.8-1.59-1.87-2.16-4.2-1.84-6.45.32-2.25 1.51-4.14 3.53-5.37 2.02-1.22 4.47-1.48 6.66-.78.03 1.46-.02 2.93-.02 4.39-.93-.46-1.93-.67-2.93-.7-1.02-.03-2.04.19-2.98.69-.94.5-1.68 1.28-2.13 2.23-.45.95-.64 2.04-.53 3.13.11 1.09.49 2.16 1.17 3.03.68.87 1.64 1.48 2.73 1.72 1.09.24 2.25.18 3.3-.16.94-.3 1.78-.86 2.44-1.64.66-.78 1.1-1.76 1.28-2.82.02-3.17.01-6.34.01-9.51Z"/></svg>
 );
 
 
@@ -101,6 +113,14 @@ export default function Home() {
     { name: 'Hoodie 4', src: 'https://placehold.co/400x500.png', hint: 'moto hoodie' },
     { name: 'Hoodie 5', src: 'https://placehold.co/400x500.png', hint: 'race hoodie' },
     { name: 'Hoodie 6', src: 'https://placehold.co/400x500.png', hint: 'bike hoodie' },
+  ];
+
+  const footerSocials = [
+    { name: "Instagram", icon: Instagram, color: "bg-[#d62976]", textColor: "text-white", href: "#" },
+    { name: "Youtube", icon: Youtube, color: "bg-[#FF0000]", textColor: "text-white", href: "#" },
+    { name: "Tiktok", icon: TiktokIcon, color: "bg-black", textColor: "text-white", href: "#" },
+    { name: "Facebook", icon: Facebook, color: "bg-[#3b5998]", textColor: "text-white", href: "#" },
+    { name: "Snapchat", icon: Ghost, color: "bg-yellow-400", textColor: "text-black", href: "#" },
   ];
 
   useEffect(() => {
@@ -380,7 +400,56 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <section className="py-16 bg-gradient-to-r from-violet-500 via-fuchsia-500 to-cyan-400">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center text-white">
+            <div>
+              <Share className="h-12 w-12 mx-auto mb-4" />
+              <p className="font-headline text-5xl font-bold">200,000+</p>
+              <p className="font-headline text-lg uppercase tracking-wider">Tiktok Followers</p>
+            </div>
+            <div>
+              <Instagram className="h-12 w-12 mx-auto mb-4" />
+              <p className="font-headline text-5xl font-bold">200,000+</p>
+              <p className="font-headline text-lg uppercase tracking-wider">Instagram Followers</p>
+            </div>
+            <div>
+              <AlertCircle className="h-12 w-12 mx-auto mb-4" />
+              <p className="font-headline text-5xl font-bold">1</p>
+              <p className="font-headline text-lg uppercase tracking-wider">Crash</p>
+            </div>
+          </div>
+        </div>
+      </section>
       
+      <footer className="bg-[#181818] text-white">
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex flex-wrap justify-between items-center gap-8">
+            <div className="flex items-center gap-3">
+              {footerSocials.map((social) => (
+                <a key={social.name} href={social.href} className={`w-9 h-9 flex items-center justify-center rounded-full ${social.color} ${social.textColor}`}>
+                  <social.icon className="h-5 w-5" />
+                </a>
+              ))}
+            </div>
+            <div className="flex items-center gap-4">
+              <span className="text-sm font-bold uppercase tracking-wider">Currency</span>
+              <Select defaultValue="usd">
+                <SelectTrigger className="w-[120px] bg-[#383838] border-none text-white font-bold">
+                  <SelectValue placeholder="$ USD" />
+                </SelectTrigger>
+                <SelectContent className="bg-[#181818] text-white border-gray-700">
+                  <SelectItem value="usd">$ USD</SelectItem>
+                  <SelectItem value="eur">€ EUR</SelectItem>
+                  <SelectItem value="gbp">£ GBP</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </div>
+      </footer>
+
       {showScrollTop && (
         <Button
           variant="ghost"
@@ -394,5 +463,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
