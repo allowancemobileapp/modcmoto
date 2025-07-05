@@ -2,7 +2,8 @@
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Search, Instagram, Youtube, User, Menu, ShoppingCart, Facebook, Ghost } from "lucide-react";
+import { Search, Instagram, Youtube, User, Menu, ShoppingCart, Facebook, Ghost, Share, ArrowUp } from "lucide-react";
+import React, { useState, useEffect } from 'react';
 
 const HelmetLogo = (props: React.SVGProps<SVGSVGElement>) => (
   <svg width="80" height="80" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
@@ -63,6 +64,30 @@ export default function Home() {
   const encodedSvg = encodeURIComponent(backgroundSvg).replace(/'/g, "%27").replace(/"/g, "%22");
   const dataUri = `data:image/svg+xml,${encodedSvg}`;
   
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const checkScrollTop = () => {
+      if (window.scrollY > 300) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', checkScrollTop);
+    return () => {
+      window.removeEventListener('scroll', checkScrollTop);
+    };
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   const navIcons = (
     <>
       <Button variant="ghost" size="icon" className="relative text-white hover:bg-gray-700/80 p-2">
@@ -90,7 +115,6 @@ export default function Home() {
               {navIcons}
             </div>
             
-            {/* Placeholder to balance flexbox on mobile */}
             <div className="lg:hidden w-8" />
 
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -117,7 +141,7 @@ export default function Home() {
       </header>
       
       <main 
-        className="flex-grow flex flex-col items-center justify-center text-center p-4"
+        className="flex-grow flex flex-col items-center justify-center text-center p-4 min-h-screen"
         style={{ backgroundImage: `url("${dataUri}")`, backgroundRepeat: 'repeat' }}
       >
         <div className="relative z-10">
@@ -129,6 +153,57 @@ export default function Home() {
           </p>
         </div>
       </main>
+
+      <section
+        className="relative h-[40vh] md:h-[50vh] flex items-center justify-center bg-cover bg-center"
+        style={{
+          backgroundImage: "url('https://placehold.co/1920x800.png')",
+        }}
+        data-ai-hint="motorsport background"
+      >
+        <div className="absolute inset-0 bg-black/30"></div>
+        <Button className="relative z-10 font-headline bg-white text-black hover:bg-gray-200 px-10 py-5 text-xl md:px-12 md:py-6 md:text-2xl tracking-wider shadow-lg">
+          SHOP NOW
+        </Button>
+      </section>
+
+      <footer className="bg-black py-10">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
+            <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-3 px-4 rounded-lg text-sm uppercase flex items-center justify-center gap-2">
+                <Instagram className="h-5 w-5" />
+                Instagram
+            </Button>
+            <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-3 px-4 rounded-lg text-sm uppercase flex items-center justify-center gap-2">
+                <Youtube className="h-5 w-5" />
+                Youtube
+            </Button>
+            <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-3 px-4 rounded-lg text-sm uppercase flex items-center justify-center gap-2">
+                <Share className="h-5 w-5" />
+                Tiktok
+            </Button>
+            <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-3 px-4 rounded-lg text-sm uppercase flex items-center justify-center gap-2">
+                <Facebook className="h-5 w-5" />
+                Facebook
+            </Button>
+            <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-3 px-4 rounded-lg text-sm uppercase flex items-center justify-center gap-2 sm:col-span-2 md:col-span-1">
+                <Ghost className="h-5 w-5" />
+                Snapchat
+            </Button>
+          </div>
+        </div>
+      </footer>
+      
+      {showScrollTop && (
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={scrollToTop}
+          className="fixed bottom-5 left-5 bg-[#383838] hover:bg-[#4a4a4a] rounded-md z-50"
+        >
+          <ArrowUp className="h-6 w-6" />
+        </Button>
+      )}
     </div>
   );
 }
