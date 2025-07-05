@@ -4,6 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Search, Instagram, Youtube, User, Menu, ShoppingCart, Facebook, Ghost, Share, ArrowUp } from "lucide-react";
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 
 const HelmetLogo = (props: React.SVGProps<SVGSVGElement>) => (
   <svg width="80" height="80" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
@@ -65,6 +73,21 @@ export default function Home() {
   const dataUri = `data:image/svg+xml,${encodedSvg}`;
   
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [api, setApi] = React.useState<CarouselApi>()
+  const [current, setCurrent] = React.useState(0)
+  const [count, setCount] = React.useState(0)
+
+  const stickers = [
+    { name: 'PFP STICKER', src: 'https://placehold.co/400x400.png', hint: 'helmet sticker' },
+    { name: 'MINI-MOD QUESTION STICKER', src: 'https://placehold.co/400x400.png', hint: 'cute question sticker' },
+    { name: 'MINI-MOD HAPPY STICKER', src: 'https://placehold.co/400x400.png', hint: 'happy cute sticker' },
+    { name: 'Sticker 4', src: 'https://placehold.co/400x400.png', hint: 'moto sticker' },
+    { name: 'Sticker 5', src: 'https://placehold.co/400x400.png', hint: 'race sticker' },
+    { name: 'Sticker 6', src: 'https://placehold.co/400x400.png', hint: 'bike sticker' },
+    { name: 'Sticker 7', src: 'https://placehold.co/400x400.png', hint: 'cool sticker' },
+    { name: 'Sticker 8', src: 'https://placehold.co/400x400.png', hint: 'awesome sticker' },
+    { name: 'Sticker 9', src: 'https://placehold.co/400x400.png', hint: 'fast sticker' },
+  ];
 
   useEffect(() => {
     const checkScrollTop = () => {
@@ -80,6 +103,19 @@ export default function Home() {
       window.removeEventListener('scroll', checkScrollTop);
     };
   }, []);
+
+  useEffect(() => {
+    if (!api) {
+      return
+    }
+    setCount(api.scrollSnapList().length)
+    setCurrent(api.selectedScrollSnap())
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap())
+    })
+  }, [api])
+
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -123,11 +159,11 @@ export default function Home() {
 
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2">
+                <Button variant="ghost" size="icon" className="lg:hidden text-white hover:bg-gray-700/80 p-2">
                   <Menu className="h-8 w-8" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="bg-[#181818] text-white border-l-gray-800 w-[250px]">
+              <SheetContent side="right" className="bg-[#181818] text-white border-l-gray-800 w-[250px] lg:hidden">
                 <SheetHeader>
                   <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                 </SheetHeader>
@@ -165,6 +201,63 @@ export default function Home() {
         <Button className="relative z-10 font-headline bg-white text-black hover:bg-gray-200 px-10 py-5 text-xl md:px-12 md:py-6 md:text-2xl tracking-wider shadow-lg">
           SHOP NOW
         </Button>
+      </section>
+
+      <section className="bg-black py-16">
+        <div className="container mx-auto px-4">
+          <Tabs defaultValue="stickers" className="w-full">
+            <div className="flex justify-center mb-10">
+              <TabsList className="bg-transparent border border-zinc-700 rounded-none p-0 h-auto">
+                <TabsTrigger value="stickers" className="text-white data-[state=active]:bg-zinc-200 data-[state=active]:text-black rounded-none font-bold uppercase tracking-wider px-10 py-3 text-sm transition-none">
+                  Stickers
+                </TabsTrigger>
+                <TabsTrigger value="posters" className="text-white data-[state=active]:bg-zinc-200 data-[state=active]:text-black rounded-none font-bold uppercase tracking-wider px-10 py-3 text-sm border-l border-zinc-700 transition-none">
+                  Posters
+                </TabsTrigger>
+              </TabsList>
+            </div>
+            <TabsContent value="stickers">
+              <Carousel setApi={setApi} opts={{ align: "start" }} className="w-full">
+                <CarouselContent>
+                  {stickers.map((sticker, index) => (
+                    <CarouselItem key={index} className="basis-full md:basis-1/2 lg:basis-1/3">
+                      <div className="p-1 h-full">
+                        <div className="flex flex-col h-full bg-black">
+                          <div className="bg-white p-4 flex-grow flex items-center justify-center aspect-square">
+                            <Image
+                              src={sticker.src}
+                              alt={sticker.name}
+                              width={400}
+                              height={400}
+                              className="object-contain max-h-full"
+                              data-ai-hint={sticker.hint}
+                            />
+                          </div>
+                          <div className="py-4">
+                            <p className="font-headline text-center text-white text-base uppercase tracking-widest">{sticker.name}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+              <div className="flex items-center justify-center space-x-2 pt-8">
+                {Array.from({ length: count }).map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => api?.scrollTo(i)}
+                    className={`h-3 w-3 rounded-full transition-colors ${i === current ? 'bg-white' : 'bg-zinc-600 hover:bg-zinc-400'}`}
+                    aria-label={`Go to slide ${i + 1}`}
+                  />
+                ))}
+              </div>
+            </TabsContent>
+            <TabsContent value="posters">
+              <p className="text-center text-white py-20">Posters will be available soon.</p>
+            </TabsContent>
+          </Tabs>
+        </div>
       </section>
 
       <footer className="bg-black py-10">
