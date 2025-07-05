@@ -74,9 +74,13 @@ export default function Home() {
   const dataUri = `data:image/svg+xml,${encodedSvg}`;
   
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [api, setApi] = React.useState<CarouselApi>()
-  const [current, setCurrent] = React.useState(0)
-  const [count, setCount] = React.useState(0)
+  const [stickerApi, setStickerApi] = React.useState<CarouselApi>()
+  const [stickerCurrent, setStickerCurrent] = React.useState(0)
+  const [stickerCount, setStickerCount] = React.useState(0)
+  
+  const [hoodieApi, setHoodieApi] = React.useState<CarouselApi>()
+  const [hoodieCurrent, setHoodieCurrent] = React.useState(0)
+  const [hoodieCount, setHoodieCount] = React.useState(0)
 
   const stickers = [
     { name: 'PFP STICKER', src: 'https://placehold.co/400x400.png', hint: 'helmet sticker' },
@@ -88,6 +92,15 @@ export default function Home() {
     { name: 'Sticker 7', src: 'https://placehold.co/400x400.png', hint: 'cool sticker' },
     { name: 'Sticker 8', src: 'https://placehold.co/400x400.png', hint: 'awesome sticker' },
     { name: 'Sticker 9', src: 'https://placehold.co/400x400.png', hint: 'fast sticker' },
+  ];
+  
+  const hoodies = [
+    { name: '[WHITE] CRAZY SPEED HOODIE', src: 'https://placehold.co/400x500.png', hint: 'white hoodie motorcycle' },
+    { name: '[SIMPLE] ME GO FAST HOODIE', src: 'https://placehold.co/400x500.png', hint: 'black hoodie simple' },
+    { name: 'WOMP WOMP HOODIE', src: 'https://placehold.co/400x500.png', hint: 'black hoodie funny' },
+    { name: 'Hoodie 4', src: 'https://placehold.co/400x500.png', hint: 'moto hoodie' },
+    { name: 'Hoodie 5', src: 'https://placehold.co/400x500.png', hint: 'race hoodie' },
+    { name: 'Hoodie 6', src: 'https://placehold.co/400x500.png', hint: 'bike hoodie' },
   ];
 
   useEffect(() => {
@@ -106,16 +119,28 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (!api) {
+    if (!stickerApi) {
       return
     }
-    setCount(api.scrollSnapList().length)
-    setCurrent(api.selectedScrollSnap())
+    setStickerCount(stickerApi.scrollSnapList().length)
+    setStickerCurrent(stickerApi.selectedScrollSnap())
 
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap())
+    stickerApi.on("select", () => {
+      setStickerCurrent(stickerApi.selectedScrollSnap())
     })
-  }, [api])
+  }, [stickerApi])
+  
+  useEffect(() => {
+    if (!hoodieApi) {
+      return
+    }
+    setHoodieCount(hoodieApi.scrollSnapList().length)
+    setHoodieCurrent(hoodieApi.selectedScrollSnap())
+
+    hoodieApi.on("select", () => {
+      setHoodieCurrent(hoodieApi.selectedScrollSnap())
+    })
+  }, [hoodieApi])
 
 
   const scrollToTop = () => {
@@ -252,7 +277,7 @@ export default function Home() {
               </TabsList>
             </div>
             <TabsContent value="stickers">
-              <Carousel setApi={setApi} opts={{ align: "start" }} className="w-full">
+              <Carousel setApi={setStickerApi} opts={{ align: "start" }} className="w-full">
                 <CarouselContent>
                   {stickers.map((sticker, index) => (
                     <CarouselItem key={index} className="basis-full md:basis-1/2 lg:basis-1/3">
@@ -278,11 +303,11 @@ export default function Home() {
                 </CarouselContent>
               </Carousel>
               <div className="flex items-center justify-center space-x-2 pt-8">
-                {Array.from({ length: count }).map((_, i) => (
+                {Array.from({ length: stickerCount }).map((_, i) => (
                   <button
                     key={i}
-                    onClick={() => api?.scrollTo(i)}
-                    className={`h-3 w-3 rounded-full transition-colors ${i === current ? 'bg-white' : 'bg-zinc-600 hover:bg-zinc-400'}`}
+                    onClick={() => stickerApi?.scrollTo(i)}
+                    className={`h-3 w-3 rounded-full transition-colors ${i === stickerCurrent ? 'bg-white' : 'bg-zinc-600 hover:bg-zinc-400'}`}
                     aria-label={`Go to slide ${i + 1}`}
                   />
                 ))}
@@ -295,14 +320,51 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-black pt-4 pb-16 text-center">
+      <section className="bg-black pt-0 pb-16">
         <div className="container mx-auto px-4">
-          <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-2 px-8 rounded-md text-xs uppercase tracking-widest">
-            See All
-          </Button>
+          <Carousel setApi={setHoodieApi} opts={{ align: "start" }} className="w-full">
+            <CarouselContent>
+              {hoodies.map((hoodie, index) => (
+                <CarouselItem key={index} className="basis-full md:basis-1/2 lg:basis-1/3">
+                  <div className="p-1 h-full">
+                    <div className="flex flex-col h-full bg-black">
+                      <div className="bg-white p-4 flex-grow flex items-center justify-center">
+                        <Image
+                          src={hoodie.src}
+                          alt={hoodie.name}
+                          width={400}
+                          height={500}
+                          className="object-contain max-h-full"
+                          data-ai-hint={hoodie.hint}
+                        />
+                      </div>
+                      <div className="py-4">
+                        <p className="font-headline text-center text-white text-base uppercase tracking-widest">{hoodie.name}</p>
+                      </div>
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+          <div className="flex items-center justify-center space-x-2 pt-8">
+            {Array.from({ length: hoodieCount }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => hoodieApi?.scrollTo(i)}
+                className={`h-3 w-3 rounded-full transition-colors ${i === hoodieCurrent ? 'bg-white' : 'bg-zinc-600 hover:bg-zinc-400'}`}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            ))}
+          </div>
+          <div className="text-center pt-8">
+            <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-2 px-8 rounded-md text-xs uppercase tracking-widest">
+              See All
+            </Button>
+          </div>
         </div>
       </section>
-
+      
       <section className="w-full">
         <Image
           src="https://placehold.co/1920x800.png"
