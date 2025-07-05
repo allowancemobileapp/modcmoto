@@ -74,7 +74,7 @@ export default function Home() {
       <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Youtube className="h-5 w-5" /></Button>
       <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Facebook className="h-5 w-5" /></Button>
       <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Ghost className="h-5 w-5" /></Button>
-      <Button variant="ghost" className="text-white hover:bg-gray-700/80 p-2 hidden sm:flex items-center gap-2">
+      <Button variant="ghost" className="text-white hover:bg-gray-700/80 p-2 flex items-center gap-2">
         <User className="h-5 w-5" />
         <span className="text-sm font-semibold">Login</span>
       </Button>
@@ -85,37 +85,34 @@ export default function Home() {
     <div className="bg-black text-white min-h-screen flex flex-col font-body">
       <header className="sticky top-0 z-50 bg-[#181818]/90 backdrop-blur-sm border-b border-gray-700">
         <div className="container mx-auto px-4 relative">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-20">
             <div className="hidden lg:flex items-center space-x-1">
               {navIcons}
             </div>
-            <div className="lg:hidden">
-              <Button variant="ghost" size="icon" className="relative text-white hover:bg-gray-700/80 p-2">
-                <ShoppingCart className="h-5 w-5" />
-                <span className="absolute top-0 right-0 bg-white text-black text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">0</span>
-              </Button>
+            
+            {/* Placeholder to balance flexbox on mobile */}
+            <div className="lg:hidden w-8" />
+
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                <HelmetLogo />
             </div>
-            <div className="flex items-center">
-              <Sheet>
-                <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2">
-                    <Menu className="h-8 w-8" />
-                  </Button>
-                </SheetTrigger>
-                <SheetContent side="right" className="bg-[#181818] text-white border-l-gray-800 lg:hidden w-[250px]">
-                  <SheetHeader>
-                    <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-                  </SheetHeader>
-                  <div className="flex flex-col items-start space-y-4 p-4">
-                    {navIcons}
-                  </div>
-                </SheetContent>
-              </Sheet>
-            </div>
+
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2">
+                  <Menu className="h-8 w-8" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="bg-[#181818] text-white border-l-gray-800 w-[250px]">
+                <SheetHeader>
+                  <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+                </SheetHeader>
+                <div className="flex flex-col items-start space-y-4 p-4">
+                  {navIcons}
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
-        </div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[15%]">
-            <HelmetLogo />
         </div>
       </header>
       
