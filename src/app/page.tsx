@@ -312,6 +312,11 @@ export default function Home() {
                   />
                 ))}
               </div>
+               <div className="text-center pt-8">
+                <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-2 px-8 rounded-md text-xs uppercase tracking-widest">
+                  See All
+                </Button>
+              </div>
             </TabsContent>
             <TabsContent value="posters">
               <p className="text-center text-white py-20">Posters will be available soon.</p>
@@ -320,7 +325,18 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-black pt-0 pb-16">
+      <section className="w-full">
+        <Image
+          src="https://placehold.co/1920x800.png"
+          alt="ModCMoto Apparel"
+          width={1920}
+          height={800}
+          className="w-full h-auto"
+          data-ai-hint="apparel merchandise"
+        />
+      </section>
+
+      <section className="bg-black pt-16 pb-16">
         <div className="container mx-auto px-4">
           <Carousel setApi={setHoodieApi} opts={{ align: "start" }} className="w-full">
             <CarouselContent>
@@ -365,17 +381,6 @@ export default function Home() {
         </div>
       </section>
       
-      <section className="w-full">
-        <Image
-          src="https://placehold.co/1920x800.png"
-          alt="ModCMoto Apparel"
-          width={1920}
-          height={800}
-          className="w-full h-auto"
-          data-ai-hint="apparel merchandise"
-        />
-      </section>
-
       {showScrollTop && (
         <Button
           variant="ghost"
@@ -389,3 +394,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
