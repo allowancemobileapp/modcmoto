@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -145,33 +146,40 @@ export default function Home() {
   return (
     <div className="bg-black text-white min-h-screen flex flex-col font-body">
       <header className="sticky top-0 z-50 bg-[#181818]/90 backdrop-blur-sm border-b border-gray-700">
-        <div className="container mx-auto px-4 relative">
+        <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
             <div className="hidden lg:flex items-center space-x-1">
               {navIcons}
             </div>
             
-            <div className="lg:hidden w-8" />
+            <div className="lg:hidden">
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2">
+                      <Menu className="h-8 w-8" />
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent side="left" className="bg-[#181818] text-white border-r-gray-800 w-[250px]">
+                    <SheetHeader>
+                      <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+                    </SheetHeader>
+                    <div className="flex flex-col items-start space-y-4 p-4">
+                      {navIcons}
+                    </div>
+                  </SheetContent>
+                </Sheet>
+            </div>
 
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                 <HelmetLogo />
             </div>
 
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="lg:hidden text-white hover:bg-gray-700/80 p-2">
-                  <Menu className="h-8 w-8" />
+            <div className="hidden lg:block w-8" />
+             <div className="lg:hidden">
+                <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2">
+                  <ShoppingCart className="h-8 w-8" />
                 </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="bg-[#181818] text-white border-l-gray-800 w-[250px] lg:hidden">
-                <SheetHeader>
-                  <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-                </SheetHeader>
-                <div className="flex flex-col items-start space-y-4 p-4">
-                  {navIcons}
-                </div>
-              </SheetContent>
-            </Sheet>
+            </div>
           </div>
         </div>
       </header>
@@ -285,6 +293,25 @@ export default function Home() {
             </TabsContent>
           </Tabs>
         </div>
+      </section>
+
+      <section className="bg-black pt-4 pb-16 text-center">
+        <div className="container mx-auto px-4">
+          <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-2 px-8 rounded-md text-xs uppercase tracking-widest">
+            See All
+          </Button>
+        </div>
+      </section>
+
+      <section className="w-full">
+        <Image
+          src="https://placehold.co/1920x800.png"
+          alt="ModCMoto Apparel"
+          width={1920}
+          height={800}
+          className="w-full h-auto"
+          data-ai-hint="apparel merchandise"
+        />
       </section>
 
       {showScrollTop && (
