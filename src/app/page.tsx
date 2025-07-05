@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Search, Instagram, Youtube, User, Menu, ShoppingCart, Facebook, Ghost } from "lucide-react";
 
 const HelmetLogo = (props: React.SVGProps<SVGSVGElement>) => (
@@ -103,6 +103,9 @@ export default function Home() {
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="right" className="bg-[#181818] text-white border-l-gray-800 lg:hidden w-[250px]">
+                  <SheetHeader>
+                    <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+                  </SheetHeader>
                   <div className="flex flex-col items-start space-y-4 p-4">
                     {navIcons}
                   </div>
