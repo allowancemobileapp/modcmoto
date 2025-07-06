@@ -128,7 +128,7 @@ export default function Home() {
   );
 
   return (
-    <div className="min-h-screen flex flex-col font-body bg-black" style={{
+    <div className="min-h-screen flex flex-col font-body" style={{
       backgroundImage: `url("/me-go-fast-bg.png")`,
       backgroundRepeat: 'repeat',
     }}>
@@ -179,21 +179,11 @@ export default function Home() {
           <p className="mt-6 text-xl font-semibold italic uppercase tracking-tight" style={{ textShadow: '0 0 10px rgba(0,0,0,0.7)'}}>
             GET THE NEW STICKER NOW!<br/> WORLDWIDE SHIPPING!
           </p>
+          <Button className="mt-8 relative z-10 font-headline bg-white text-black hover:bg-gray-200 px-10 py-5 text-xl md:px-12 md:py-6 md:text-2xl tracking-wider shadow-lg">
+            SHOP NOW
+          </Button>
         </div>
       </main>
-
-      <section
-        className="relative h-[40vh] md:h-[50vh] flex items-center justify-center bg-cover bg-center"
-        style={{
-          backgroundImage: "url('https://placehold.co/1920x800.png')",
-        }}
-        data-ai-hint="motorsport background"
-      >
-        <div className="absolute inset-0 bg-black/30"></div>
-        <Button className="relative z-10 font-headline bg-white text-black hover:bg-gray-200 px-10 py-5 text-xl md:px-12 md:py-6 md:text-2xl tracking-wider shadow-lg">
-          SHOP NOW
-        </Button>
-      </section>
 
       <section className="py-10">
         <div className="container mx-auto px-4">
@@ -241,7 +231,7 @@ export default function Home() {
                   {stickers.map((sticker, index) => (
                     <CarouselItem key={index} className="basis-full md:basis-1/2 lg:basis-1/3">
                       <div className="p-1 h-full">
-                        <div className="flex flex-col h-full bg-black/20">
+                        <div className="flex flex-col h-full">
                           <div className="bg-white p-4 flex-grow flex items-center justify-center aspect-square">
                             <Image
                               src={sticker.src}
@@ -302,7 +292,7 @@ export default function Home() {
               {hoodies.map((hoodie, index) => (
                 <CarouselItem key={index} className="basis-full md:basis-1/2 lg:basis-1/3">
                   <div className="p-1 h-full">
-                    <div className="flex flex-col h-full bg-black/20">
+                    <div className="flex flex-col h-full">
                       <div className="bg-white p-4 flex-grow flex items-center justify-center">
                         <Image
                           src={hoodie.src}
