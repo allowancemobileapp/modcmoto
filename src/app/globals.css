@@ -83,8 +83,9 @@ body {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
     background-image: url("/me-go-fast-bg.png");
     background-repeat: repeat;
+    background-color: #000;
   }
 }
