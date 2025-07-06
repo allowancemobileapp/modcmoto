@@ -128,7 +128,7 @@ export default function Home() {
   );
 
   return (
-    <div className="min-h-screen flex flex-col font-body" style={{
+    <div className="min-h-screen flex flex-col font-body bg-black" style={{
       backgroundImage: `url("/me-go-fast-bg.png")`,
       backgroundRepeat: 'repeat',
     }}>
@@ -176,14 +176,17 @@ export default function Home() {
           <h1 className="font-headline text-6xl font-extrabold italic uppercase tracking-tighter" style={{ textShadow: '0 0 15px rgba(0,0,0,0.7)'}}>
             MODCMOTO
           </h1>
-          <p className="mt-6 text-xl font-semibold italic uppercase tracking-tight" style={{ textShadow: '0 0 10px rgba(0,0,0,0.7)'}}>
+          <p className="mt-8 text-xl font-semibold italic uppercase tracking-tight" style={{ textShadow: '0 0 10px rgba(0,0,0,0.7)'}}>
             GET THE NEW STICKER NOW!<br/> WORLDWIDE SHIPPING!
           </p>
-          <Button className="mt-8 relative z-10 font-headline bg-white text-black hover:bg-gray-200 px-10 py-5 text-xl md:px-12 md:py-6 md:text-2xl tracking-wider shadow-lg">
-            SHOP NOW
-          </Button>
         </div>
       </main>
+
+      <section className="py-12 text-center">
+        <Button className="font-headline bg-white text-black hover:bg-gray-200 px-8 py-4 text-lg tracking-wider shadow-lg">
+          SHOP NOW
+        </Button>
+      </section>
 
       <section className="py-10">
         <div className="container mx-auto px-4">
@@ -396,10 +399,11 @@ export default function Home() {
             <a href="#" className="hover:text-gray-300">Affiliate Links</a>
             <a href="#" className="hover:text-gray-300">Return Policy</a>
             <a href="#" className="hover:text-gray-300">Cookie policy</a>
-            <a href="#" className="hover:text-gray-300">Terms & conditions</a>
+            <a href="#" className="hover:text-gray-300">Terms &amp; conditions</a>
           </div>
         </div>
       </div>
     </div>
   );
-}
+
+    
