@@ -68,10 +68,11 @@ export default function Home() {
     <svg xmlns='http://www.w3.org/2000/svg' width='500' height='500' viewBox='0 0 500 500'>
       <style>
         .fast-text {
-          font-family: Anton, sans-serif;
+          font-family: Oswald, sans-serif;
+          font-style: italic;
           font-size: 60px;
           fill: rgba(38, 38, 38, 0.8);
-          font-weight: bold;
+          font-weight: 700;
         }
       </style>
       <g transform='rotate(-15 100 100)'>
@@ -173,7 +174,10 @@ export default function Home() {
   );
 
   return (
-    <div className="bg-black text-white min-h-screen flex flex-col font-body">
+    <div 
+      className="bg-black text-white min-h-screen flex flex-col font-body"
+      style={{ backgroundImage: `url("${dataUri}")`, backgroundRepeat: 'repeat' }}
+    >
       <header className="sticky top-0 z-50 bg-[#181818]/90 backdrop-blur-sm border-b border-gray-700">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
@@ -213,10 +217,7 @@ export default function Home() {
         </div>
       </header>
       
-      <main 
-        className="flex-grow flex flex-col items-center justify-center text-center p-4 min-h-screen"
-        style={{ backgroundImage: `url("${dataUri}")`, backgroundRepeat: 'repeat' }}
-      >
+      <main className="flex-grow flex flex-col items-center justify-center text-center p-4 min-h-screen">
         <div className="relative z-10">
           <h1 className="font-headline text-7xl sm:text-8xl md:text-9xl font-bold uppercase tracking-wide text-white" style={{ textShadow: '0 0 15px rgba(0,0,0,0.7)'}}>
             MODCMOTO
