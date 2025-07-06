@@ -128,8 +128,8 @@ export default function Home() {
   );
 
   return (
-    <div className="min-h-screen flex flex-col font-body bg-black" style={{
-      backgroundImage: `url("/me-go-fast-bg.png")`,
+    <div className="min-h-screen flex flex-col font-body" style={{
+      backgroundImage: `url("/me-go-fast-bg.jpeg")`,
       backgroundRepeat: 'repeat',
     }}>
       <header className="sticky top-0 z-50 bg-[#181818]/90 backdrop-blur-sm border-b border-gray-700">
@@ -183,7 +183,7 @@ export default function Home() {
       </main>
 
       <section className="py-12 text-center">
-        <Button className="font-headline bg-white text-black hover:bg-gray-200 px-8 py-4 text-lg tracking-wider shadow-lg">
+        <Button className="font-headline bg-white text-black hover:bg-gray-200 px-6 py-3 text-base tracking-wider shadow-lg">
           SHOP NOW
         </Button>
       </section>
@@ -405,5 +405,3 @@ export default function Home() {
       </div>
     </div>
   );
-
-    
