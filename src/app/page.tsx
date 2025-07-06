@@ -64,28 +64,6 @@ const TiktokIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 
 export default function Home() {
-  const backgroundSvg = `
-    <svg xmlns='http://www.w3.org/2000/svg' width='500' height='500' viewBox='0 0 500 500'>
-      <style>
-        .fast-text {
-          font-family: Oswald, sans-serif;
-          font-style: italic;
-          font-size: 60px;
-          fill: rgba(38, 38, 38, 0.8);
-          font-weight: 700;
-        }
-      </style>
-      <g transform='rotate(-15 100 100)'>
-        <text x='20' y='120' class='fast-text'>ME GO FAST</text>
-      </g>
-      <g transform='rotate(-15 400 400)'>
-        <text x='250' y='420' class='fast-text'>ME GO FAST</text>
-      </g>
-    </svg>
-  `;
-  const encodedSvg = encodeURIComponent(backgroundSvg).replace(/'/g, "%27").replace(/"/g, "%22");
-  const dataUri = `data:image/svg+xml,${encodedSvg}`;
-  
   const [stickerApi, setStickerApi] = React.useState<CarouselApi>()
   const [stickerCurrent, setStickerCurrent] = React.useState(0)
   const [stickerCount, setStickerCount] = React.useState(0)
@@ -176,7 +154,7 @@ export default function Home() {
   return (
     <div 
       className="bg-black text-white min-h-screen flex flex-col font-body"
-      style={{ backgroundImage: `url("${dataUri}")`, backgroundRepeat: 'repeat' }}
+      style={{ backgroundImage: `url("/me-go-fast-bg.png")`, backgroundRepeat: 'repeat' }}
     >
       <header className="sticky top-0 z-50 bg-[#181818]/90 backdrop-blur-sm border-b border-gray-700">
         <div className="container mx-auto px-4">
