@@ -27,8 +27,8 @@ const HelmetLogo = ({ className, priority = false }: { className?: string, prior
     <Image
       src="/logo.png"
       alt="ModCMoto Logo"
-      width={80}
-      height={80}
+      width={50}
+      height={50}
       className={className}
       priority={priority}
     />
@@ -128,10 +128,7 @@ export default function Home() {
   );
 
   return (
-    <div className="min-h-screen flex flex-col font-body" style={{
-      backgroundImage: `url("/me-go-fast-bg.jpeg")`,
-      backgroundRepeat: 'repeat',
-    }}>
+    <div className="min-h-screen flex flex-col font-body bg-black">
       <header className="sticky top-0 z-50 bg-[#181818]/90 backdrop-blur-sm border-b border-gray-700">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
@@ -171,7 +168,10 @@ export default function Home() {
         </div>
       </header>
       
-      <main className="flex-grow flex flex-col items-center justify-center text-center p-4 min-h-screen">
+      <main className="flex-grow flex flex-col items-center justify-center text-center p-4 min-h-screen" style={{
+        backgroundImage: `url("/me-go-fast-bg.jpeg")`,
+        backgroundRepeat: 'repeat',
+      }}>
         <div className="relative z-10">
           <h1 className="font-headline text-6xl font-extrabold italic uppercase tracking-tighter" style={{ textShadow: '0 0 15px rgba(0,0,0,0.7)'}}>
             MODCMOTO
@@ -405,3 +405,5 @@ export default function Home() {
       </div>
     </div>
   );
+}
+    
