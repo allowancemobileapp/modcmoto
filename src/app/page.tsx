@@ -152,7 +152,11 @@ export default function Home() {
   );
 
   return (
-    <div className="min-h-screen flex flex-col font-body bg-black">
+    <div className="min-h-screen flex flex-col font-body" style={{
+      backgroundImage: `url("/me-go-fast-bg.png")`,
+      backgroundRepeat: 'repeat',
+      backgroundColor: '#000',
+    }}>
       <header className="sticky top-0 z-50 bg-[#181818]/90 backdrop-blur-sm border-b border-gray-700">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
@@ -194,10 +198,10 @@ export default function Home() {
       
       <main className="flex-grow flex flex-col items-center justify-center text-center p-4 min-h-screen">
         <div className="relative z-10">
-          <h1 className="font-headline text-5xl sm:text-6xl md:text-7xl font-extrabold italic uppercase tracking-wide" style={{ textShadow: '0 0 15px rgba(0,0,0,0.7)'}}>
+          <h1 className="font-headline text-5xl font-extrabold italic uppercase tracking-tighter" style={{ textShadow: '0 0 15px rgba(0,0,0,0.7)'}}>
             MODCMOTO
           </h1>
-          <p className="mt-4 text-base md:text-lg font-semibold italic tracking-wider" style={{ textShadow: '0 0 10px rgba(0,0,0,0.7)'}}>
+          <p className="mt-4 text-xl font-semibold italic uppercase tracking-tight" style={{ textShadow: '0 0 10px rgba(0,0,0,0.7)'}}>
             GET THE NEW STICKER NOW!<br className="sm:hidden"/> WORLDWIDE SHIPPING!
           </p>
         </div>
