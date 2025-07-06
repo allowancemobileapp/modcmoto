@@ -20,42 +20,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 
 
-const HelmetLogo = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg width="80" height="80" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-    <g clipPath="url(#clip0_101_2)">
-      <path d="M39 0C17.46 0 0 17.46 0 39C0 60.54 17.46 78 39 78C60.54 78 78 60.54 78 39C78 17.46 60.54 0 39 0Z" fill="#181818"/>
-      <g filter="url(#filter0_d_101_2)">
-        <path d="M60.444 46.6667V50.8889C60.444 52.3486 60.0381 53.7744 59.2778 55.006C58.5175 56.2376 57.4357 57.2341 56.1664 57.8929C54.8971 58.5517 53.4932 58.8519 52.0861 58.7679C50.679 58.6839 49.3243 58.2193 48.1778 57.4222L46.3111 56.1333L31.6889 56.1333L29.8222 57.4222C28.6757 58.2193 27.321 58.6839 25.9139 58.7679C24.5068 58.8519 23.1029 58.5517 21.8336 57.8929C20.5643 57.2341 19.4825 56.2376 18.7222 55.006C17.9619 53.7744 17.556 52.3486 17.556 50.8889V46.6667" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M60.444 46.6667C60.444 41.5979 55.9392 37.5556 50.2218 37.5556H27.7782C22.0608 37.5556 17.556 41.5979 17.556 46.6667V46.6667C17.556 41.5979 22.0608 37.5556 27.7782 37.5556H50.2218C55.9392 37.5556 60.444 41.5979 60.444 46.6667V46.6667Z" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M60.444 32.2222C56.9667 21.2444 47.9111 19.5 39 19.5C30.0889 19.5 21.0333 21.2444 17.5556 32.2222" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M17.5556 46.6667C17.5556 41.5979 22.0604 37.5556 27.7778 37.5556H50.2222C55.9396 37.5556 60.4444 41.5979 60.4444 46.6667" fill="url(#paint0_linear_101_2)"/>
-      </g>
-    </g>
-    <defs>
-      <filter id="filter0_d_101_2" x="12.556" y="15.5" width="52.8881" height="52.2676" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-        <feFlood floodOpacity="0" result="BackgroundImageFix"/>
-        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-        <feOffset dy="1"/>
-        <feGaussianBlur stdDeviation="2"/>
-        <feComposite in2="hardAlpha" operator="out"/>
-        <feColorMatrix type="matrix" values="0 0 0 0 0.439216 0 0 0 0 0.117647 0 0 0 0 0.960784 0 0 0 0.5 0"/>
-        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_101_2"/>
-        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_101_2" result="shape"/>
-      </filter>
-      <linearGradient id="paint0_linear_101_2" x1="17.5556" y1="42.1111" x2="60.4444" y2="42.1111" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#8A2BE2"/>
-        <stop offset="0.25" stopColor="#4169E1"/>
-        <stop offset="0.5" stopColor="#00FFFF"/>
-        <stop offset="0.75" stopColor="#32CD32"/>
-        <stop offset="1" stopColor="#FFFF00"/>
-      </linearGradient>
-      <clipPath id="clip0_101_2">
-        <rect width="78" height="78" fill="white"/>
-      </clipPath>
-    </defs>
-  </svg>
+const HelmetLogo = ({ className, priority = false }: { className?: string, priority?: boolean }) => (
+    <Image
+      src="/logo.png"
+      alt="ModCMoto Logo"
+      width={80}
+      height={80}
+      className={className}
+      priority={priority}
+    />
 );
 
 const TiktokIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -152,7 +128,7 @@ export default function Home() {
   );
 
   return (
-    <div className="min-h-screen flex flex-col font-body" style={{
+    <div className="min-h-screen flex flex-col font-body bg-black" style={{
       backgroundImage: `url("/me-go-fast-bg.png")`,
       backgroundRepeat: 'repeat',
     }}>
@@ -182,7 +158,7 @@ export default function Home() {
             </div>
 
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                <HelmetLogo />
+                <HelmetLogo priority={true} />
             </div>
 
             <div className="hidden lg:block w-8" />
@@ -231,7 +207,7 @@ export default function Home() {
                 Youtube
             </Button>
             <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-3 px-4 rounded-lg text-sm uppercase flex items-center justify-center gap-2">
-                <Share className="h-5 w-5" />
+                <TiktokIcon className="h-5 w-5 fill-white" />
                 Tiktok
             </Button>
             <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-3 px-4 rounded-lg text-sm uppercase flex items-center justify-center gap-2">
@@ -265,7 +241,7 @@ export default function Home() {
                   {stickers.map((sticker, index) => (
                     <CarouselItem key={index} className="basis-full md:basis-1/2 lg:basis-1/3">
                       <div className="p-1 h-full">
-                        <div className="flex flex-col h-full">
+                        <div className="flex flex-col h-full bg-black/20">
                           <div className="bg-white p-4 flex-grow flex items-center justify-center aspect-square">
                             <Image
                               src={sticker.src}
@@ -326,7 +302,7 @@ export default function Home() {
               {hoodies.map((hoodie, index) => (
                 <CarouselItem key={index} className="basis-full md:basis-1/2 lg:basis-1/3">
                   <div className="p-1 h-full">
-                    <div className="flex flex-col h-full">
+                    <div className="flex flex-col h-full bg-black/20">
                       <div className="bg-white p-4 flex-grow flex items-center justify-center">
                         <Image
                           src={hoodie.src}
@@ -368,7 +344,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center text-white">
             <div>
-              <Share className="h-12 w-12 mx-auto mb-4" />
+              <TiktokIcon className="h-12 w-12 mx-auto mb-4 fill-white" />
               <p className="font-headline text-5xl font-bold">200,000+</p>
               <p className="font-headline text-lg uppercase tracking-wider">Tiktok Followers</p>
             </div>
@@ -391,7 +367,7 @@ export default function Home() {
           <div className="flex flex-wrap justify-between items-center gap-8">
             <div className="flex items-center gap-3">
               {footerSocials.map((social) => (
-                <a key={social.name} href={social.href} className={`w-9 h-9 flex items-center justify-center rounded-full ${social.color} ${social.textColor}`}>
+                <a key={social.name} href={social.href} className={cn(`w-9 h-9 flex items-center justify-center rounded-full ${social.color} ${social.textColor}`)}>
                   <social.icon className="h-5 w-5" />
                 </a>
               ))}
