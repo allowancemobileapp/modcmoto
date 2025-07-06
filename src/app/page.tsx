@@ -85,7 +85,6 @@ export default function Home() {
   const encodedSvg = encodeURIComponent(backgroundSvg).replace(/'/g, "%27").replace(/"/g, "%22");
   const dataUri = `data:image/svg+xml,${encodedSvg}`;
   
-  const [showScrollTop, setShowScrollTop] = useState(false);
   const [stickerApi, setStickerApi] = React.useState<CarouselApi>()
   const [stickerCurrent, setStickerCurrent] = React.useState(0)
   const [stickerCount, setStickerCount] = React.useState(0)
@@ -122,21 +121,6 @@ export default function Home() {
     { name: "Facebook", icon: Facebook, color: "bg-[#3b5998]", textColor: "text-white", href: "#" },
     { name: "Snapchat", icon: Ghost, color: "bg-yellow-400", textColor: "text-black", href: "#" },
   ];
-
-  useEffect(() => {
-    const checkScrollTop = () => {
-      if (window.scrollY > 300) {
-        setShowScrollTop(true);
-      } else {
-        setShowScrollTop(false);
-      }
-    };
-
-    window.addEventListener('scroll', checkScrollTop);
-    return () => {
-      window.removeEventListener('scroll', checkScrollTop);
-    };
-  }, []);
 
   useEffect(() => {
     if (!stickerApi) {
@@ -450,16 +434,27 @@ export default function Home() {
         </div>
       </footer>
 
-      {showScrollTop && (
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={scrollToTop}
-          className="fixed bottom-5 left-5 bg-[#383838] hover:bg-[#4a4a4a] rounded-md z-50"
-        >
-          <ArrowUp className="h-6 w-6" />
-        </Button>
-      )}
+      <div className="bg-[#181818] border-t border-gray-700 py-4">
+        <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-y-4">
+          <div className="flex items-center gap-4">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={scrollToTop}
+              className="bg-[#383838] hover:bg-[#4a4a4a] rounded-none w-9 h-9"
+            >
+              <ArrowUp className="h-5 w-5" />
+            </Button>
+            <HelmetLogo className="h-16 w-16" />
+          </div>
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs md:text-sm font-semibold">
+            <a href="#" className="hover:text-gray-300">Affiliate Links</a>
+            <a href="#" className="hover:text-gray-300">Return Policy</a>
+            <a href="#" className="hover:text-gray-300">Cookie policy</a>
+            <a href="#" className="hover:text-gray-300">Terms & conditions</a>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
