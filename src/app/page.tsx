@@ -219,7 +219,7 @@ export default function Home() {
         </Button>
       </section>
 
-      <section className="bg-black py-10">
+      <section className="py-10">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
             <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-3 px-4 rounded-lg text-sm uppercase flex items-center justify-center gap-2">
@@ -246,7 +246,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-black py-16">
+      <section className="py-16">
         <div className="container mx-auto px-4">
           <Tabs defaultValue="stickers" className="w-full">
             <div className="flex justify-center mb-10">
@@ -319,7 +319,7 @@ export default function Home() {
         />
       </section>
 
-      <section className="bg-black pt-16 pb-16">
+      <section className="pt-16 pb-16">
         <div className="container mx-auto px-4">
           <Carousel setApi={setHoodieApi} opts={{ align: "start" }} className="w-full">
             <CarouselContent>
