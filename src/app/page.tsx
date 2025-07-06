@@ -265,7 +265,7 @@ export default function Home() {
                   {stickers.map((sticker, index) => (
                     <CarouselItem key={index} className="basis-full md:basis-1/2 lg:basis-1/3">
                       <div className="p-1 h-full">
-                        <div className="flex flex-col h-full bg-black">
+                        <div className="flex flex-col h-full">
                           <div className="bg-white p-4 flex-grow flex items-center justify-center aspect-square">
                             <Image
                               src={sticker.src}
@@ -326,7 +326,7 @@ export default function Home() {
               {hoodies.map((hoodie, index) => (
                 <CarouselItem key={index} className="basis-full md:basis-1/2 lg:basis-1/3">
                   <div className="p-1 h-full">
-                    <div className="flex flex-col h-full bg-black">
+                    <div className="flex flex-col h-full">
                       <div className="bg-white p-4 flex-grow flex items-center justify-center">
                         <Image
                           src={hoodie.src}
