@@ -39,6 +39,24 @@ const TiktokIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white" {...props}><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-2.43.05-4.84-.95-6.43-2.8-1.59-1.87-2.16-4.2-1.84-6.45.32-2.25 1.51-4.14 3.53-5.37 2.02-1.22 4.47-1.48 6.66-.78.03 1.46-.02 2.93-.02 4.39-.93-.46-1.93-.67-2.93-.7-1.02-.03-2.04.19-2.98.69-.94.5-1.68 1.28-2.13 2.23-.45.95-.64 2.04-.53 3.13.11 1.09.49 2.16 1.17 3.03.68.87 1.64 1.48 2.73 1.72 1.09.24 2.25.18 3.3-.16.94-.3 1.78-.86 2.44-1.64.66-.78 1.1-1.76 1.28-2.82.02-3.17.01-6.34.01-9.51Z"/></svg>
 );
 
+const NavIcons = () => (
+  <>
+    <Button variant="ghost" size="icon" className="relative text-white hover:bg-gray-700/80 p-2">
+      <ShoppingCart className="h-5 w-5" />
+      <span className="absolute top-0 right-0 bg-white text-black text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">0</span>
+    </Button>
+    <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Search className="h-5 w-5" /></Button>
+    <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Instagram className="h-5 w-5" /></Button>
+    <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Youtube className="h-5 w-5" /></Button>
+    <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Facebook className="h-5 w-5" /></Button>
+    <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Ghost className="h-5 w-5" /></Button>
+    <Button variant="ghost" className="text-white hover:bg-gray-700/80 p-2 flex items-center gap-2">
+      <User className="h-5 w-5" />
+      <span className="text-sm font-semibold">Login</span>
+    </Button>
+  </>
+);
+
 
 export default function Home() {
   const [stickerApi, setStickerApi] = React.useState<CarouselApi>()
@@ -139,19 +157,7 @@ export default function Home() {
             {/* Left Group */}
             <div className="flex items-center">
               <div className="hidden lg:flex items-center space-x-1">
-                <Button variant="ghost" size="icon" className="relative text-white hover:bg-gray-700/80 p-2">
-                  <ShoppingCart className="h-5 w-5" />
-                  <span className="absolute top-0 right-0 bg-white text-black text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">0</span>
-                </Button>
-                <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Search className="h-5 w-5" /></Button>
-                <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Instagram className="h-5 w-5" /></Button>
-                <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Youtube className="h-5 w-5" /></Button>
-                <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Facebook className="h-5 w-5" /></Button>
-                <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Ghost className="h-5 w-5" /></Button>
-                <Button variant="ghost" className="text-white hover:bg-gray-700/80 p-2 flex items-center gap-2">
-                  <User className="h-5 w-5" />
-                  <span className="text-sm font-semibold">Login</span>
-                </Button>
+                 <NavIcons />
               </div>
               <div className="lg:hidden">
                   <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2 relative">
@@ -212,7 +218,7 @@ export default function Home() {
               MODCMOTO
             </h1>
             <p className="mt-8 text-xl font-semibold uppercase tracking-tight" style={{ textShadow: '0 0 10px rgba(0,0,0,0.7)'}}>
-              GET THE NEW STICKER NOW!
+              GET THE NEW STICKER & NFTs NOW!
               <br/>
               WORLDWIDE SHIPPING!
             </p>
@@ -259,10 +265,10 @@ export default function Home() {
             <div className="flex justify-center mb-10">
               <TabsList className="bg-transparent border border-zinc-700 rounded-none p-0 h-auto">
                 <TabsTrigger value="stickers" className="text-white data-[state=active]:bg-zinc-200 data-[state=active]:text-black rounded-none font-bold uppercase tracking-wider px-10 py-3 text-sm transition-none">
-                  Stickers
+                  STICKERS
                 </TabsTrigger>
-                <TabsTrigger value="posters" className="text-white data-[state=active]:bg-zinc-200 data-[state=active]:text-black rounded-none font-bold uppercase tracking-wider px-10 py-3 text-sm border-l border-zinc-700 transition-none">
-                  Posters
+                <TabsTrigger value="nfts" className="text-white data-[state=active]:bg-zinc-200 data-[state=active]:text-black rounded-none font-bold uppercase tracking-wider px-10 py-3 text-sm border-l border-zinc-700 transition-none">
+                  NFTs
                 </TabsTrigger>
               </TabsList>
             </div>
@@ -316,8 +322,8 @@ export default function Home() {
                 </Button>
               </div>
             </TabsContent>
-            <TabsContent value="posters">
-              <p className="text-center text-white py-20">Posters will be available soon.</p>
+            <TabsContent value="nfts">
+              <p className="text-center text-white py-20">NFTs will be available soon.</p>
             </TabsContent>
           </Tabs>
         </div>
@@ -479,3 +485,6 @@ export default function Home() {
 
 
 
+
+
+    
