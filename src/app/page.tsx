@@ -297,7 +297,7 @@ export default function Home() {
 
       <section className="w-full bg-black">
         <Image
-          src="/clothing.png"
+          src="/clothes.png"
           alt="Clothing"
           width={1920}
           height={800}
@@ -428,5 +428,6 @@ export default function Home() {
     
 
     
+
 
 
