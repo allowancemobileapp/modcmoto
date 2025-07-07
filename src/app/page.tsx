@@ -62,7 +62,7 @@ export default function Home() {
   
   const hoodies = [
     { name: '[WHITE] CRAZY SPEED HOODIE', src: 'https://placehold.co/400x500.png', hint: 'white hoodie motorcycle' },
-    { name: '[SIMPLE] ME GO FAST HOODie', src: 'https://placehold.co/400x500.png', hint: 'black hoodie simple' },
+    { name: '[SIMPLE] ME GO FAST HOODIE', src: 'https://placehold.co/400x500.png', hint: 'black hoodie simple' },
     { name: 'WOMP WOMP HOODIE', src: 'https://placehold.co/400x500.png', hint: 'black hoodie funny' },
     { name: 'Hoodie 4', src: 'https://placehold.co/400x500.png', hint: 'moto hoodie' },
     { name: 'Hoodie 5', src: 'https://placehold.co/400x500.png', hint: 'race hoodie' },
@@ -279,12 +279,11 @@ export default function Home() {
 
       <section className="w-full">
         <Image
-          src="https://placehold.co/1920x800.png"
-          alt="ModCMoto Apparel"
+          src="/clothes.png"
+          alt="Clothing"
           width={1920}
           height={800}
           className="w-full h-auto"
-          data-ai-hint="apparel merchandise"
         />
       </section>
 
@@ -406,4 +405,6 @@ export default function Home() {
     </div>
   );
 }
+    
+
     
