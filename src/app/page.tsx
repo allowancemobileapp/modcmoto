@@ -49,8 +49,8 @@ export default function Home() {
   const [hoodieCurrent, setHoodieCurrent] = React.useState(0)
   const [hoodieCount, setHoodieCount] = React.useState(0)
   
-  const stickerAutoplay = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: true }))
-  const hoodieAutoplay = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: true }))
+  const stickerAutoplay = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: true, stopOnMouseEnter: true }))
+  const hoodieAutoplay = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: true, stopOnMouseEnter: true }))
 
   const stickers = [
     { name: 'MODCMOTO FLAME STICKER', src: '/MODCMOTO-FLAME-STICKER.jpg', hint: 'flame sticker' },
@@ -258,8 +258,6 @@ export default function Home() {
                   align: "start",
                   loop: true,
                 }}
-                onMouseEnter={stickerAutoplay.current.stop}
-                onMouseLeave={stickerAutoplay.current.reset}
                 className="w-full"
               >
                 <CarouselContent>
@@ -326,8 +324,6 @@ export default function Home() {
             plugins={[hoodieAutoplay.current]}
             opts={{ align: "start", loop: true }} 
             className="w-full"
-            onMouseEnter={hoodieAutoplay.current.stop}
-            onMouseLeave={hoodieAutoplay.current.reset}
           >
             <CarouselContent>
               {hoodies.map((hoodie, index) => (
@@ -449,6 +445,7 @@ export default function Home() {
     
 
     
+
 
 
 
