@@ -49,6 +49,8 @@ export default function Home() {
   const [hoodieCurrent, setHoodieCurrent] = React.useState(0)
   const [hoodieCount, setHoodieCount] = React.useState(0)
   
+  const [showScroll, setShowScroll] = useState(false);
+
   const stickerAutoplay = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: true, stopOnMouseEnter: true }))
   const hoodieAutoplay = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: true, stopOnMouseEnter: true }))
 
@@ -107,6 +109,20 @@ export default function Home() {
     })
   }, [hoodieApi])
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 400) {
+        setShowScroll(true);
+      } else {
+        setShowScroll(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -437,6 +453,16 @@ export default function Home() {
           </div>
         </div>
       </div>
+      {showScroll && (
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={scrollToTop}
+          className="fixed bottom-5 left-5 z-50 bg-[#383838] hover:bg-[#4a4a4a] rounded-md h-12 w-12 text-white"
+        >
+          <ArrowUp className="h-6 w-6" />
+        </Button>
+      )}
     </div>
   );
 }
@@ -445,6 +471,7 @@ export default function Home() {
     
 
     
+
 
 
 
