@@ -2,7 +2,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetTitle } from "@/components/ui/sheet";
 import { Search, Instagram, Youtube, User, Menu, ShoppingCart, Facebook, Ghost, ArrowUp, AlertCircle, X, ChevronRight } from "lucide-react";
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
@@ -128,7 +128,7 @@ export default function Home() {
   );
 
   return (
-    <div className="min-h-screen flex flex-col font-body bg-black">
+    <div className="min-h-screen flex flex-col font-body">
       <header className="sticky top-0 z-50 bg-[#181818]/90 backdrop-blur-sm border-b border-gray-700">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
@@ -156,6 +156,7 @@ export default function Home() {
                     </Button>
                   </SheetTrigger>
                   <SheetContent side="right" showClose={false} className="bg-[#181818] text-white border-l border-gray-700 w-[300px] p-0">
+                    <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
                     <div className="flex items-center justify-between p-4 border-b border-gray-700">
                       <HelmetLogo />
                       <SheetClose asChild>
@@ -197,13 +198,13 @@ export default function Home() {
         </div>
       </main>
 
-      <section className="py-12 text-center">
+      <section className="py-12 text-center bg-black">
         <Button size="sm" className="font-headline bg-white text-black hover:bg-gray-200 px-6 py-3 text-base tracking-wider shadow-lg">
           SHOP NOW
         </Button>
       </section>
 
-      <section className="py-10">
+      <section className="py-10 bg-black">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
             <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-3 px-4 rounded-lg text-sm uppercase flex items-center justify-center gap-2">
@@ -230,7 +231,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16">
+      <section className="py-16 bg-black">
         <div className="container mx-auto px-4">
           <Tabs defaultValue="stickers" className="w-full">
             <div className="flex justify-center mb-10">
@@ -292,7 +293,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="w-full">
+      <section className="w-full bg-black">
         <Image
           src="/clothing.png"
           alt="Clothing"
@@ -302,7 +303,7 @@ export default function Home() {
         />
       </section>
 
-      <section className="pt-16 pb-16">
+      <section className="pt-16 pb-16 bg-black">
         <div className="container mx-auto px-4">
           <Carousel setApi={setHoodieApi} opts={{ align: "start" }} className="w-full">
             <CarouselContent>
