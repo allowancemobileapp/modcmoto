@@ -2,8 +2,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Search, Instagram, Youtube, User, Menu, ShoppingCart, Facebook, Ghost, Share, ArrowUp, AlertCircle } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
+import { Search, Instagram, Youtube, User, Menu, ShoppingCart, Facebook, Ghost, ArrowUp, AlertCircle, X, ChevronRight } from "lucide-react";
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -23,12 +23,12 @@ import {
 import { cn } from "@/lib/utils";
 
 
-const HelmetLogo = ({ className, priority = false }: { className?: string, priority?: boolean }) => (
+const HelmetLogo = ({ className, priority = false, width = 50, height = 50 }: { className?: string, priority?: boolean, width?: number, height?: number }) => (
     <Image
       src="/logo.png"
       alt="ModCMoto Logo"
-      width={50}
-      height={50}
+      width={width}
+      height={height}
       className={className}
       priority={priority}
     />
@@ -137,32 +137,44 @@ export default function Home() {
             </div>
             
             <div className="lg:hidden">
+                <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2 relative">
+                  <ShoppingCart className="h-8 w-8" />
+                   <span className="absolute top-1 right-1 bg-white text-black text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">0</span>
+                </Button>
+            </div>
+
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                <HelmetLogo priority={true} width={50} height={50}/>
+            </div>
+
+            <div className="hidden lg:block w-8" />
+             <div className="lg:hidden">
                 <Sheet>
                   <SheetTrigger asChild>
                     <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2">
                       <Menu className="h-8 w-8" />
                     </Button>
                   </SheetTrigger>
-                  <SheetContent side="left" className="bg-[#181818] text-white border-r-gray-800 w-[250px]">
-                    <SheetHeader>
-                      <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-                    </SheetHeader>
-                    <div className="flex flex-col items-start space-y-4 p-4">
-                      {navIcons}
+                  <SheetContent side="right" showClose={false} className="bg-[#181818] text-white border-l border-gray-700 w-[300px] p-0">
+                    <div className="flex items-center justify-between p-4 border-b border-gray-700">
+                      <HelmetLogo />
+                      <SheetClose asChild>
+                          <Button variant="ghost" className="p-2 border border-gray-500 rounded-md hover:bg-gray-700 text-white">
+                              <X className="h-6 w-6" />
+                          </Button>
+                      </SheetClose>
                     </div>
+                    <nav className="flex flex-col items-start space-y-6 p-6 text-sm font-semibold uppercase tracking-widest">
+                        <a href="#" className="hover:text-gray-300">Affiliate Links</a>
+                        <a href="#" className="flex items-center justify-between w-full hover:text-gray-300">
+                            <span>Shop All</span>
+                            <ChevronRight className="h-4 w-4" />
+                        </a>
+                        <a href="#" className="hover:text-gray-300">Modcmoto Merch</a>
+                        <a href="#" className="hover:text-gray-300">Me Go Fast Merch</a>
+                    </nav>
                   </SheetContent>
                 </Sheet>
-            </div>
-
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                <HelmetLogo priority={true} />
-            </div>
-
-            <div className="hidden lg:block w-8" />
-             <div className="lg:hidden">
-                <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2">
-                  <ShoppingCart className="h-8 w-8" />
-                </Button>
             </div>
           </div>
         </div>
@@ -171,19 +183,22 @@ export default function Home() {
       <main className="flex-grow flex flex-col items-center justify-center text-center p-4 min-h-screen" style={{
         backgroundImage: `url("/me-go-fast-bg.jpeg")`,
         backgroundRepeat: 'repeat',
+        backgroundSize: 'auto',
       }}>
         <div className="relative z-10">
           <h1 className="font-headline text-6xl font-extrabold italic uppercase tracking-tighter" style={{ textShadow: '0 0 15px rgba(0,0,0,0.7)'}}>
             MODCMOTO
           </h1>
           <p className="mt-8 text-xl font-semibold italic uppercase tracking-tight" style={{ textShadow: '0 0 10px rgba(0,0,0,0.7)'}}>
-            GET THE NEW STICKER NOW!<br/> WORLDWIDE SHIPPING!
+            GET THE NEW STICKER NOW!
+            <br/>
+            WORLDWIDE SHIPPING!
           </p>
         </div>
       </main>
 
       <section className="py-12 text-center">
-        <Button className="font-headline bg-white text-black hover:bg-gray-200 px-6 py-3 text-base tracking-wider shadow-lg">
+        <Button size="sm" className="font-headline bg-white text-black hover:bg-gray-200 px-6 py-3 text-base tracking-wider shadow-lg">
           SHOP NOW
         </Button>
       </section>
@@ -279,7 +294,7 @@ export default function Home() {
 
       <section className="w-full">
         <Image
-          src="/clothes.png"
+          src="/clothing.png"
           alt="Clothing"
           width={1920}
           height={800}
