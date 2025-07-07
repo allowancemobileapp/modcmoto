@@ -109,38 +109,34 @@ export default function Home() {
     });
   };
 
-  const navIcons = (
-    <>
-      <Button variant="ghost" size="icon" className="relative text-white hover:bg-gray-700/80 p-2">
-        <ShoppingCart className="h-5 w-5" />
-        <span className="absolute top-0 right-0 bg-white text-black text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">0</span>
-      </Button>
-      <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Search className="h-5 w-5" /></Button>
-      <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Instagram className="h-5 w-5" /></Button>
-      <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Youtube className="h-5 w-5" /></Button>
-      <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Facebook className="h-5 w-5" /></Button>
-      <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Ghost className="h-5 w-5" /></Button>
-      <Button variant="ghost" className="text-white hover:bg-gray-700/80 p-2 flex items-center gap-2">
-        <User className="h-5 w-5" />
-        <span className="text-sm font-semibold">Login</span>
-      </Button>
-    </>
-  );
-
   return (
     <div className="min-h-screen flex flex-col font-body bg-black">
       <header className="sticky top-0 z-50 bg-[#181818]/90 backdrop-blur-sm border-b border-gray-700">
         <div className="container mx-auto px-4">
           <div className="relative flex items-center justify-between h-20">
-            {/* Left Icons */}
-            <div className="hidden lg:flex items-center space-x-1">
-              {navIcons}
-            </div>
-            <div className="lg:hidden">
-                <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2 relative">
-                  <ShoppingCart className="h-8 w-8" />
-                   <span className="absolute top-1 right-1 bg-white text-black text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">0</span>
+            {/* Left Group */}
+            <div className="flex items-center">
+              <div className="hidden lg:flex items-center space-x-1">
+                <Button variant="ghost" size="icon" className="relative text-white hover:bg-gray-700/80 p-2">
+                  <ShoppingCart className="h-5 w-5" />
+                  <span className="absolute top-0 right-0 bg-white text-black text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">0</span>
                 </Button>
+                <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Search className="h-5 w-5" /></Button>
+                <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Instagram className="h-5 w-5" /></Button>
+                <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Youtube className="h-5 w-5" /></Button>
+                <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Facebook className="h-5 w-5" /></Button>
+                <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Ghost className="h-5 w-5" /></Button>
+                <Button variant="ghost" className="text-white hover:bg-gray-700/80 p-2 flex items-center gap-2">
+                  <User className="h-5 w-5" />
+                  <span className="text-sm font-semibold">Login</span>
+                </Button>
+              </div>
+              <div className="lg:hidden">
+                  <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2 relative">
+                    <ShoppingCart className="h-8 w-8" />
+                     <span className="absolute top-1 right-1 bg-white text-black text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">0</span>
+                  </Button>
+              </div>
             </div>
             
             {/* Centered Logo */}
@@ -148,8 +144,8 @@ export default function Home() {
                 <HelmetLogo priority={true} width={80} height={80}/>
             </div>
 
-            {/* Right Menu */}
-            <div>
+            {/* Right Group */}
+            <div className="flex items-center">
                 <Sheet>
                   <SheetTrigger asChild>
                     <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2">
@@ -182,29 +178,31 @@ export default function Home() {
         </div>
       </header>
       
-      <main className="flex-grow flex flex-col items-center justify-center text-center p-4 min-h-[calc(100vh-80px)]" style={{
-        backgroundImage: `url("/me-go-fast-bg.jpeg")`,
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-      }}>
-        <div className="relative z-10">
-          <h1 className="font-headline text-6xl font-extrabold italic uppercase tracking-tighter" style={{ textShadow: '0 0 15px rgba(0,0,0,0.7)'}}>
-            MODCMOTO
-          </h1>
-          <p className="mt-8 text-xl font-semibold italic uppercase tracking-tight" style={{ textShadow: '0 0 10px rgba(0,0,0,0.7)'}}>
-            GET THE NEW STICKER NOW!
-            <br/>
-            WORLDWIDE SHIPPING!
-          </p>
+      <main className="flex-grow">
+        <div className="flex flex-col items-center justify-center text-center p-4 min-h-[calc(100vh-80px)]" style={{
+          backgroundImage: `url("/me-go-fast-bg.jpeg")`,
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
+        }}>
+          <div className="relative z-10">
+            <h1 className="font-headline text-6xl font-extrabold italic uppercase tracking-tighter" style={{ textShadow: '0 0 15px rgba(0,0,0,0.7)'}}>
+              MODCMOTO
+            </h1>
+            <p className="mt-8 text-xl font-semibold uppercase tracking-tight" style={{ textShadow: '0 0 10px rgba(0,0,0,0.7)'}}>
+              GET THE NEW STICKER NOW!
+              <br/>
+              WORLDWIDE SHIPPING!
+            </p>
+          </div>
         </div>
-      </main>
 
-      <section className="py-12 text-center bg-black">
-        <Button size="sm" className="font-headline bg-white text-black hover:bg-gray-200 px-6 py-3 text-base tracking-wider shadow-lg">
-          SHOP NOW
-        </Button>
-      </section>
+        <section className="py-12 text-center bg-black">
+          <Button size="sm" className="font-headline bg-white text-black hover:bg-gray-200 px-6 py-3 text-base tracking-wider shadow-lg">
+            SHOP NOW
+          </Button>
+        </section>
+      </main>
 
       <section className="py-10 bg-black">
         <div className="container mx-auto px-4">
