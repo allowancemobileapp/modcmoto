@@ -131,24 +131,25 @@ export default function Home() {
     <div className="min-h-screen flex flex-col font-body bg-black">
       <header className="sticky top-0 z-50 bg-[#181818]/90 backdrop-blur-sm border-b border-gray-700">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-20">
+          <div className="relative flex items-center justify-between h-20">
+            {/* Left Icons */}
             <div className="hidden lg:flex items-center space-x-1">
               {navIcons}
             </div>
-            
             <div className="lg:hidden">
                 <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2 relative">
                   <ShoppingCart className="h-8 w-8" />
                    <span className="absolute top-1 right-1 bg-white text-black text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">0</span>
                 </Button>
             </div>
-
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                <HelmetLogo priority={true} width={50} height={50}/>
+            
+            {/* Centered Logo */}
+            <div className="absolute left-1/2 top-2 transform -translate-x-1/2">
+                <HelmetLogo priority={true} width={80} height={80}/>
             </div>
 
-            <div className="hidden lg:block w-8" />
-             <div className="lg:hidden">
+            {/* Right Menu */}
+            <div>
                 <Sheet>
                   <SheetTrigger asChild>
                     <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2">
@@ -157,7 +158,7 @@ export default function Home() {
                   </SheetTrigger>
                   <SheetContent side="right" showClose={false} className="bg-[#181818] text-white border-l border-gray-700 w-[300px] p-0">
                     <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
-                    <div className="flex items-center justify-between p-4">
+                    <div className="flex items-center justify-between p-4 border-b border-gray-700">
                       <HelmetLogo width={40} height={40}/>
                       <SheetClose asChild>
                           <Button variant="ghost" className="p-2 border border-gray-500 rounded-md hover:bg-gray-700 text-white">
@@ -181,7 +182,7 @@ export default function Home() {
         </div>
       </header>
       
-      <main className="flex-grow flex flex-col items-center justify-center text-center p-4 min-h-screen" style={{
+      <main className="flex-grow flex flex-col items-center justify-center text-center p-4 min-h-[calc(100vh-80px)]" style={{
         backgroundImage: `url("/me-go-fast-bg.jpeg")`,
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
