@@ -49,24 +49,26 @@ export default function Home() {
   const [hoodieCount, setHoodieCount] = React.useState(0)
 
   const stickers = [
-    { name: 'PFP STICKER', src: 'https://placehold.co/400x400.png', hint: 'helmet sticker' },
-    { name: 'MINI-MOD QUESTION STICKER', src: 'https://placehold.co/400x400.png', hint: 'cute question sticker' },
-    { name: 'MINI-MOD HAPPY STICKER', src: 'https://placehold.co/400x400.png', hint: 'happy cute sticker' },
-    { name: 'Sticker 4', src: 'https://placehold.co/400x400.png', hint: 'moto sticker' },
-    { name: 'Sticker 5', src: 'https://placehold.co/400x400.png', hint: 'race sticker' },
-    { name: 'Sticker 6', src: 'https://placehold.co/400x400.png', hint: 'bike sticker' },
-    { name: 'Sticker 7', src: 'https://placehold.co/400x400.png', hint: 'cool sticker' },
-    { name: 'Sticker 8', src: 'https://placehold.co/400x400.png', hint: 'awesome sticker' },
-    { name: 'Sticker 9', src: 'https://placehold.co/400x400.png', hint: 'fast sticker' },
+    { name: 'MODCMOTO FLAME STICKER', src: '/MODCMOTO-FLAME-STICKER.JPG', hint: 'flame sticker' },
+    { name: 'MINI-MOD HAPPY STICKER', src: '/MINI-MOD-HAPPY-STICKER.JPG', hint: 'happy sticker' },
+    { name: 'MINI-MOD STANDING STICKER', src: '/MINI-MOD-STANDING-STICKER.JPG', hint: 'cute sticker' },
+    { name: 'MODCMOTO PFP STICKER', src: '/MODCMOTO-PFP-STICKER.JPG', hint: 'helmet sticker' },
+    { name: 'MINI-MOD WATERGUN STICKER', src: '/MINI-MOD-WATERGUN-STICKER.JPG', hint: 'watergun sticker' },
+    { name: 'PFP STICKER', src: '/PFP-STICKER.JPG', hint: 'moto sticker' },
+    { name: 'MINI-MOD QUESTION STICKER', src: '/MINI-MOD-QUESTION-STICKER.JPG', hint: 'question sticker' },
+    { name: 'MINI-MOD RAGE STICKER', src: '/MINI-MOD-RAGE-STICKER.JPG', hint: 'rage sticker' },
+    { name: 'MINI-MOD CAT EARS STICKERS', src: '/MINI-MOD-CAT-EARS-STICKERS.JPG', hint: 'cat ears' },
   ];
   
   const hoodies = [
-    { name: '[WHITE] CRAZY SPEED HOODIE', src: 'https://placehold.co/400x500.png', hint: 'white hoodie motorcycle' },
-    { name: '[SIMPLE] ME GO FAST HOODIE', src: 'https://placehold.co/400x500.png', hint: 'black hoodie simple' },
-    { name: 'WOMP WOMP HOODIE', src: 'https://placehold.co/400x500.png', hint: 'black hoodie funny' },
-    { name: 'Hoodie 4', src: 'https://placehold.co/400x500.png', hint: 'moto hoodie' },
-    { name: 'Hoodie 5', src: 'https://placehold.co/400x500.png', hint: 'race hoodie' },
-    { name: 'Hoodie 6', src: 'https://placehold.co/400x500.png', hint: 'bike hoodie' },
+    { name: 'MOD BLACK DRAGON HOODIE [RED]', src: '/MOD-BLACK-DRAGON-HOODIE-[RED].JPG', hint: 'dragon hoodie' },
+    { name: 'SIMPLE ME GO FAST HOODIE', src: '/SIMPLE-ME-GO-FAST-HOODIE.JPG', hint: 'simple hoodie' },
+    { name: 'ME GO FAST T-SHIRT', src: '/ME-GO-FAST-T-SHIRT.JPG', hint: 'fast tshirt' },
+    { name: 'ME GO FAST HOODIE', src: '/ME-GO-FAST-HOODIE.JPG', hint: 'moto hoodie' },
+    { name: 'MODCMOTO HOODIE', src: '/MODCMOTO-HOODIE.JPG', hint: 'brand hoodie' },
+    { name: 'FAST T-SHIRT', src: '/FAST-T-SHIRT.JPG', hint: 'fast tshirt' },
+    { name: '[WHITE] ME GO FAST HOODIE', src: '/[WHITE]-ME-GO-FAST-HOODIE.JPG', hint: 'white hoodie' },
+    { name: '[BLACK] CRAZY SPEED HOODIE', src: '/[BLACK]-CRAZY-SPEED-HOODIE.JPG', hint: 'black hoodie' },
   ];
 
   const footerSocials = [
@@ -426,3 +428,4 @@ export default function Home() {
     
 
     
+
