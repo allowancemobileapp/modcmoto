@@ -49,26 +49,26 @@ export default function Home() {
   const [hoodieCount, setHoodieCount] = React.useState(0)
 
   const stickers = [
-    { name: 'MODCMOTO FLAME STICKER', src: '/MODCMOTO-FLAME-STICKER.JPG', hint: 'flame sticker' },
-    { name: 'MINI-MOD HAPPY STICKER', src: '/MINI-MOD-HAPPY-STICKER.JPG', hint: 'happy sticker' },
-    { name: 'MINI-MOD STANDING STICKER', src: '/MINI-MOD-STANDING-STICKER.JPG', hint: 'cute sticker' },
-    { name: 'MODCMOTO PFP STICKER', src: '/MODCMOTO-PFP-STICKER.JPG', hint: 'helmet sticker' },
-    { name: 'MINI-MOD WATERGUN STICKER', src: '/MINI-MOD-WATERGUN-STICKER.JPG', hint: 'watergun sticker' },
-    { name: 'PFP STICKER', src: '/PFP-STICKER.JPG', hint: 'moto sticker' },
-    { name: 'MINI-MOD QUESTION STICKER', src: '/MINI-MOD-QUESTION-STICKER.JPG', hint: 'question sticker' },
-    { name: 'MINI-MOD RAGE STICKER', src: '/MINI-MOD-RAGE-STICKER.JPG', hint: 'rage sticker' },
-    { name: 'MINI-MOD CAT EARS STICKERS', src: '/MINI-MOD-CAT-EARS-STICKERS.JPG', hint: 'cat ears' },
+    { name: 'MODCMOTO FLAME STICKER', src: '/MODCMOTO-FLAME-STICKER.jpg', hint: 'flame sticker' },
+    { name: 'MINI-MOD HAPPY STICKER', src: '/MINI-MOD-HAPPY-STICKER.jpg', hint: 'happy sticker' },
+    { name: 'MINI-MOD STANDING STICKER', src: '/MINI-MOD-STANDING-STICKER.jpg', hint: 'cute sticker' },
+    { name: 'MODCMOTO PFP STICKER', src: '/MODCMOTO-PFP-STICKER.jpg', hint: 'helmet sticker' },
+    { name: 'MINI-MOD WATERGUN STICKER', src: '/MINI-MOD-WATERGUN-STICKER.jpg', hint: 'watergun sticker' },
+    { name: 'PFP STICKER', src: '/PFP-STICKER.jpg', hint: 'moto sticker' },
+    { name: 'MINI-MOD QUESTION STICKER', src: '/MINI-MOD-QUESTION-STICKER.jpg', hint: 'question sticker' },
+    { name: 'MINI-MOD RAGE STICKER', src: '/MINI-MOD-RAGE-STICKER.jpg', hint: 'rage sticker' },
+    { name: 'MINI-MOD CAT EARS STICKERS', src: '/MINI-MOD-CAT-EARS-STICKERS.jpg', hint: 'cat ears' },
   ];
   
   const hoodies = [
-    { name: 'MOD BLACK DRAGON HOODIE [RED]', src: '/MOD-BLACK-DRAGON-HOODIE-[RED].JPG', hint: 'dragon hoodie' },
-    { name: 'SIMPLE ME GO FAST HOODIE', src: '/SIMPLE-ME-GO-FAST-HOODIE.JPG', hint: 'simple hoodie' },
-    { name: 'ME GO FAST T-SHIRT', src: '/ME-GO-FAST-T-SHIRT.JPG', hint: 'fast tshirt' },
-    { name: 'ME GO FAST HOODIE', src: '/ME-GO-FAST-HOODIE.JPG', hint: 'moto hoodie' },
-    { name: 'MODCMOTO HOODIE', src: '/MODCMOTO-HOODIE.JPG', hint: 'brand hoodie' },
-    { name: 'FAST T-SHIRT', src: '/FAST-T-SHIRT.JPG', hint: 'fast tshirt' },
-    { name: '[WHITE] ME GO FAST HOODIE', src: '/[WHITE]-ME-GO-FAST-HOODIE.JPG', hint: 'white hoodie' },
-    { name: '[BLACK] CRAZY SPEED HOODIE', src: '/[BLACK]-CRAZY-SPEED-HOODIE.JPG', hint: 'black hoodie' },
+    { name: 'MOD BLACK DRAGON HOODIE [RED]', src: '/MOD-BLACK-DRAGON-HOODIE-[RED].jpg', hint: 'dragon hoodie' },
+    { name: 'SIMPLE ME GO FAST HOODIE', src: '/SIMPLE-ME-GO-FAST-HOODIE.jpg', hint: 'simple hoodie' },
+    { name: 'ME GO FAST T-SHIRT', src: '/ME-GO-FAST-T-SHIRT.jpg', hint: 'fast tshirt' },
+    { name: 'ME GO FAST HOODIE', src: '/ME-GO-FAST-HOODIE.jpg', hint: 'moto hoodie' },
+    { name: 'MODCMOTO HOODIE', src: '/MODCMOTO-HOODIE.jpg', hint: 'brand hoodie' },
+    { name: 'FAST T-SHIRT', src: '/FAST-T-SHIRT.jpg', hint: 'fast tshirt' },
+    { name: '[WHITE] ME GO FAST HOODIE', src: '/[WHITE]-ME-GO-FAST-HOODIE.jpg', hint: 'white hoodie' },
+    { name: '[BLACK] CRAZY SPEED HOODIE', src: '/[BLACK]-CRAZY-SPEED-HOODIE.jpg', hint: 'black hoodie' },
   ];
 
   const footerSocials = [
@@ -253,7 +253,7 @@ export default function Home() {
                     <CarouselItem key={index} className="basis-full md:basis-1/2 lg:basis-1/3">
                       <div className="p-1 h-full">
                         <div className="flex flex-col h-full">
-                          <div className="bg-white p-4 flex-grow flex items-center justify-center aspect-square">
+                          <div className="bg-white p-4 flex-grow flex items-center justify-center aspect-square border">
                             <Image
                               src={sticker.src}
                               alt={sticker.name}
@@ -313,7 +313,7 @@ export default function Home() {
                 <CarouselItem key={index} className="basis-full md:basis-1/2 lg:basis-1/3">
                   <div className="p-1 h-full">
                     <div className="flex flex-col h-full">
-                      <div className="bg-white p-4 flex-grow flex items-center justify-center">
+                      <div className="bg-white p-4 flex-grow flex items-center justify-center border">
                         <Image
                           src={hoodie.src}
                           alt={hoodie.name}
@@ -428,4 +428,5 @@ export default function Home() {
     
 
     
+
 
