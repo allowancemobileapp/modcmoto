@@ -3,7 +3,8 @@
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetTitle } from "@/components/ui/sheet";
-import { Search, Instagram, Youtube, User, Menu, ShoppingCart, Facebook, Ghost, ArrowUp, AlertCircle, X, ChevronRight } from "lucide-react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Search, Instagram, Youtube, User, Menu, ShoppingCart, Facebook, Ghost, ArrowUp, AlertCircle, X, ChevronRight, HelpCircle } from "lucide-react";
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -57,6 +58,13 @@ const NavIcons = () => (
   </>
 );
 
+const WalletConnectIcon = () => (<div className="w-10 h-10 rounded-lg bg-[#3375BB] flex items-center justify-center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.5 12C6.5 9.51472 8.51472 7.5 11 7.5H12.25C14.1693 7.5 15.75 9.08071 15.75 11V13C15.75 14.9193 17.3307 16.5 19.25 16.5H20" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M13.25 7.5C15.1693 7.5 16.75 9.08071 16.75 11V13C16.75 14.9193 15.1693 16.5 13.25 16.5H11C8.51472 16.5 6.5 14.4853 6.5 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></div>);
+const MetaMaskIcon = () => (<div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center"><svg width="28" height="24" viewBox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M28 10.375L21.5 5.625L25.5 2.125L28 10.375Z" fill="#E2761B"/><path d="M0 10.375L6.5 5.625L2.5 2.125L0 10.375Z" fill="#E2761B"/><path d="M14 24L6.5 15.25V5.625L14 9.25L21.5 5.625V15.25L14 24Z" fill="#D7C1B3"/><path d="M21.5 5.625L14 9.25V0L21.5 5.625Z" fill="#233447"/><path d="M6.5 5.625L14 9.25V0L6.5 5.625Z" fill="#F6851B"/><path d="M14 9.25L6.5 5.625L0 10.375L6.5 15.25L14 9.25Z" fill="#161616"/><path d="M14 9.25L21.5 5.625L28 10.375L21.5 15.25L14 9.25Z" fill="#F6851B"/></svg></div>);
+const TrustWalletIcon = () => (<div className="w-10 h-10 rounded-lg bg-[#3375BB] flex items-center justify-center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L4 5V12C4 18.25 8.33333 21.6667 12 23C15.6667 21.6667 20 18.25 20 12V5L12 2Z" fill="white"/></svg></div>);
+const PlusWalletIcon = () => (<div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#5F27CD] to-[#4D22A5] flex items-center justify-center"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 3V8M8 13V8M8 8H13M8 8H3" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg></div>);
+const BinanceWalletIcon = () => (<div className="w-10 h-10 rounded-lg bg-[#F0B90B] flex items-center justify-center p-2"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4L16 8L12 12L8 8L12 4Z" fill="white"/><path d="M16 12L20 16L16 20L12 16L16 12Z" fill="white"/><path d="M8 12L4 16L8 20L12 16L8 12Z" fill="white"/><path d="M12 12L14 14L12 16L10 14L12 12Z" fill="#F0B90B"/></svg></div>);
+const CoinbaseWalletIcon = () => (<div className="w-10 h-10 rounded-lg bg-[#0052FF] flex items-center justify-center"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="14" height="14" rx="1" stroke="white" strokeWidth="2"/></svg></div>);
+const AllWalletsIcon = () => (<div className="w-10 h-10 rounded-lg bg-gray-600 flex items-center justify-center p-2"><div className="grid grid-cols-2 grid-rows-2 gap-1.5"><div className="w-2 h-2 bg-gray-400 rounded-full"></div><div className="w-2 h-2 bg-gray-400 rounded-full"></div><div className="w-2 h-2 bg-gray-400 rounded-full"></div><div className="w-2 h-2 bg-gray-400 rounded-full"></div></div></div>);
 
 export default function Home() {
   const [stickerApi, setStickerApi] = React.useState<CarouselApi>()
@@ -95,6 +103,16 @@ export default function Home() {
     { name: '[BLACK] CRAZY SPEED HOODIE', src: '/[BLACK]-CRAZY-SPEED-HOODIE.jpg', hint: 'black hoodie' },
   ];
 
+  const wallets = [
+    { name: 'WalletConnect', icon: <WalletConnectIcon />, extra: 'QR CODE' },
+    { name: 'MetaMask', icon: <MetaMaskIcon /> },
+    { name: 'Trust Wallet', icon: <TrustWalletIcon /> },
+    { name: 'Plus Wallet', icon: <PlusWalletIcon /> },
+    { name: 'Binance Wallet', icon: <BinanceWalletIcon /> },
+    { name: 'Coinbase Wallet', icon: <CoinbaseWalletIcon /> },
+    { name: 'All Wallets', icon: <AllWalletsIcon />, extra: '450+' },
+  ];
+  
   const footerSocials = [
     { name: "Instagram", icon: Instagram, color: "bg-[#d62976]", textColor: "text-white", href: "#" },
     { name: "Youtube", icon: Youtube, color: "bg-[#FF0000]", textColor: "text-white", href: "#" },
@@ -174,9 +192,45 @@ export default function Home() {
 
             {/* Right Group */}
             <div className="flex items-center">
-                <Button className="hidden md:flex bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-bold py-2 px-6 rounded-lg mr-4 text-sm hover:from-cyan-500 hover:to-blue-600">
-                    Connect Wallet
-                </Button>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button className="hidden md:flex bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-bold py-2 px-6 rounded-lg mr-4 text-sm hover:from-cyan-500 hover:to-blue-600">
+                        Connect Wallet
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="bg-[#141414] border-gray-800 rounded-3xl w-full max-w-sm p-6">
+                      <div className="relative flex items-center justify-center mb-6">
+                          <HelpCircle className="absolute left-0 h-6 w-6 text-gray-400" />
+                          <h2 className="text-lg font-bold text-white">Connect Wallet</h2>
+                      </div>
+                      
+                      <div className="flex flex-col gap-2">
+                          {wallets.map((wallet, index) => (
+                              <button key={index} className="flex items-center justify-between w-full p-3 rounded-xl bg-[#252525] hover:bg-[#353535] transition-colors">
+                                  <div className="flex items-center gap-4">
+                                      {wallet.icon}
+                                      <span className="font-semibold text-white">{wallet.name}</span>
+                                  </div>
+                                  {wallet.extra && (
+                                      <span className={`text-xs font-bold py-1 px-2 rounded-md ${wallet.name === 'WalletConnect' ? 'bg-[#3375BB] text-white' : 'bg-[#3a3a3a] text-gray-300'}`}>
+                                          {wallet.extra}
+                                      </span>
+                                  )}
+                              </button>
+                          ))}
+                      </div>
+
+                      <div className="text-center mt-6">
+                          <p className="text-sm text-gray-400">
+                              Haven't got a wallet?{' '}
+                              <a href="#" className="text-blue-500 font-semibold hover:underline">
+                                  Get started
+                              </a>
+                          </p>
+                      </div>
+                  </DialogContent>
+                </Dialog>
+
                 <Sheet>
                   <SheetTrigger asChild>
                     <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2">
