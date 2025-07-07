@@ -174,6 +174,9 @@ export default function Home() {
 
             {/* Right Group */}
             <div className="flex items-center">
+                <Button className="hidden md:flex bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-bold py-2 px-6 rounded-lg mr-4 text-sm hover:from-cyan-500 hover:to-blue-600">
+                    Connect Wallet
+                </Button>
                 <Sheet>
                   <SheetTrigger asChild>
                     <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2">
@@ -478,13 +481,16 @@ export default function Home() {
 
     
 
+    
 
+    
 
+    
 
+    
 
+    
 
-
-
-
+    
 
     
