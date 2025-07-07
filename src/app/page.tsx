@@ -4,7 +4,7 @@
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetTitle } from "@/components/ui/sheet";
 import { Search, Instagram, Youtube, User, Menu, ShoppingCart, Facebook, Ghost, ArrowUp, AlertCircle, X, ChevronRight } from "lucide-react";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -13,6 +13,7 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay"
 import {
   Select,
   SelectContent,
@@ -47,6 +48,8 @@ export default function Home() {
   const [hoodieApi, setHoodieApi] = React.useState<CarouselApi>()
   const [hoodieCurrent, setHoodieCurrent] = React.useState(0)
   const [hoodieCount, setHoodieCount] = React.useState(0)
+  
+  const autoplayPlugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
 
   const stickers = [
     { name: 'MODCMOTO FLAME STICKER', src: '/MODCMOTO-FLAME-STICKER.jpg', hint: 'flame sticker' },
@@ -142,8 +145,8 @@ export default function Home() {
             </div>
             
             {/* Centered Logo */}
-            <div className="absolute left-1/2 top-2 transform -translate-x-1/2">
-                <HelmetLogo priority={true} width={80} height={80}/>
+            <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <HelmetLogo priority={true} width={96} height={96}/>
             </div>
 
             {/* Right Group */}
@@ -247,7 +250,17 @@ export default function Home() {
               </TabsList>
             </div>
             <TabsContent value="stickers">
-              <Carousel setApi={setStickerApi} opts={{ align: "start" }} className="w-full">
+              <Carousel 
+                setApi={setStickerApi} 
+                plugins={[autoplayPlugin.current]}
+                opts={{
+                  align: "start",
+                  loop: true,
+                }}
+                onMouseEnter={autoplayPlugin.current.stop}
+                onMouseLeave={autoplayPlugin.current.reset}
+                className="w-full"
+              >
                 <CarouselContent>
                   {stickers.map((sticker, index) => (
                     <CarouselItem key={index} className="basis-full md:basis-1/2 lg:basis-1/3">
@@ -307,7 +320,14 @@ export default function Home() {
 
       <section className="pt-16 pb-16 bg-black">
         <div className="container mx-auto px-4">
-          <Carousel setApi={setHoodieApi} opts={{ align: "start" }} className="w-full">
+          <Carousel 
+            setApi={setHoodieApi} 
+            plugins={[autoplayPlugin.current]}
+            opts={{ align: "start", loop: true }} 
+            className="w-full"
+            onMouseEnter={autoplayPlugin.current.stop}
+            onMouseLeave={autoplayPlugin.current.reset}
+          >
             <CarouselContent>
               {hoodies.map((hoodie, index) => (
                 <CarouselItem key={index} className="basis-full md:basis-1/2 lg:basis-1/3">
@@ -428,6 +448,7 @@ export default function Home() {
     
 
     
+
 
 
 
