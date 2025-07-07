@@ -128,7 +128,7 @@ export default function Home() {
   );
 
   return (
-    <div className="min-h-screen flex flex-col font-body">
+    <div className="min-h-screen flex flex-col font-body bg-black">
       <header className="sticky top-0 z-50 bg-[#181818]/90 backdrop-blur-sm border-b border-gray-700">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
@@ -157,15 +157,15 @@ export default function Home() {
                   </SheetTrigger>
                   <SheetContent side="right" showClose={false} className="bg-[#181818] text-white border-l border-gray-700 w-[300px] p-0">
                     <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
-                    <div className="flex items-center justify-between p-4 border-b border-gray-700">
-                      <HelmetLogo />
+                    <div className="flex items-center justify-between p-4">
+                      <HelmetLogo width={40} height={40}/>
                       <SheetClose asChild>
                           <Button variant="ghost" className="p-2 border border-gray-500 rounded-md hover:bg-gray-700 text-white">
                               <X className="h-6 w-6" />
                           </Button>
                       </SheetClose>
                     </div>
-                    <nav className="flex flex-col items-start space-y-6 p-6 text-sm font-semibold uppercase tracking-widest">
+                    <nav className="font-headline flex flex-col items-start space-y-5 p-6 text-sm font-bold uppercase tracking-widest">
                         <a href="#" className="hover:text-gray-300">Affiliate Links</a>
                         <a href="#" className="flex items-center justify-between w-full hover:text-gray-300">
                             <span>Shop All</span>
@@ -183,8 +183,9 @@ export default function Home() {
       
       <main className="flex-grow flex flex-col items-center justify-center text-center p-4 min-h-screen" style={{
         backgroundImage: `url("/me-go-fast-bg.jpeg")`,
-        backgroundRepeat: 'repeat',
-        backgroundSize: 'auto',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
       }}>
         <div className="relative z-10">
           <h1 className="font-headline text-6xl font-extrabold italic uppercase tracking-tighter" style={{ textShadow: '0 0 15px rgba(0,0,0,0.7)'}}>
