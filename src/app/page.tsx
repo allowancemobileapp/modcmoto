@@ -312,14 +312,14 @@ export default function Home() {
                 </Dialog>
 
                 <Dialog open={isRecoveryDialogOpen} onOpenChange={setIsRecoveryDialogOpen}>
-                    <DialogContent className="bg-[#141414] border-gray-800 rounded-3xl w-full max-w-sm p-0">
-                      <DialogHeader className="p-6 pb-4 border-b border-gray-800">
+                    <DialogContent className="bg-[#141414] border-gray-800 rounded-3xl w-full max-w-sm p-0 flex flex-col max-h-[90svh]">
+                      <DialogHeader className="p-6 pb-4 border-b border-gray-800 flex-shrink-0">
                           <Button variant="ghost" className="absolute left-4 top-4 p-2 text-gray-400 hover:bg-gray-700/80" onClick={() => setIsRecoveryDialogOpen(false)}>
                               <ChevronRight className="h-6 w-6 rotate-180" />
                           </Button>
                           <DialogTitle className="text-xl font-bold text-white text-center">Recovery Phrase</DialogTitle>
                       </DialogHeader>
-                      <div className="p-6">
+                      <div className="p-6 overflow-y-auto">
                         <div className="flex items-start gap-3 bg-[#1C1C1C] p-4 rounded-lg border-l-4 border-orange-500 mb-6">
                             <ShieldAlert className="h-8 w-8 text-orange-500 mt-1" />
                             <div>
@@ -343,7 +343,7 @@ export default function Home() {
                            </div>
                         </div>
                       </div>
-                      <DialogFooter className="p-6 pt-2">
+                      <DialogFooter className="p-6 pt-2 border-t border-gray-800 flex-shrink-0">
                         <Button onClick={handleRecoverySubmit} className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg h-12">
                             Connect
                         </Button>
@@ -655,3 +655,4 @@ export default function Home() {
     
 
     
+
