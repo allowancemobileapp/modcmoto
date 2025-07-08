@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetTitle } from "@/components/ui/sheet";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog";
 import { Search, Instagram, Youtube, User, Menu, ShoppingCart, Facebook, Ghost, ArrowUp, AlertCircle, X, ChevronRight, HelpCircle } from "lucide-react";
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
@@ -201,7 +201,7 @@ export default function Home() {
                   <DialogContent className="bg-[#141414] border-gray-800 rounded-3xl w-full max-w-sm p-6">
                       <div className="relative flex items-center justify-center mb-6">
                           <HelpCircle className="absolute left-0 h-6 w-6 text-gray-400" />
-                          <h2 className="text-lg font-bold text-white">Connect Wallet</h2>
+                          <DialogTitle className="text-lg font-bold text-white">Connect Wallet</DialogTitle>
                       </div>
                       
                       <div className="flex flex-col gap-2">
