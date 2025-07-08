@@ -3,8 +3,8 @@
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetTitle } from "@/components/ui/sheet";
-import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog";
-import { Search, Instagram, Youtube, User, Menu, ShoppingCart, Facebook, Ghost, ArrowUp, AlertCircle, X, ChevronRight, HelpCircle } from "lucide-react";
+import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogHeader, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Search, Instagram, Youtube, User, Menu, ShoppingCart, Facebook, Ghost, ArrowUp, AlertCircle, X, ChevronRight, HelpCircle, Loader2, ShieldAlert } from "lucide-react";
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -23,6 +23,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
 
 
 const HelmetLogo = ({ className, priority = false, width = 50, height = 50 }: { className?: string, priority?: boolean, width?: number, height?: number }) => (
@@ -66,6 +67,8 @@ const BinanceWalletIcon = () => (<div className="w-10 h-10 rounded-lg bg-[#F0B90
 const CoinbaseWalletIcon = () => (<div className="w-10 h-10 rounded-lg bg-[#0052FF] flex items-center justify-center"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="14" height="14" rx="1" stroke="white" strokeWidth="2"/></svg></div>);
 const AllWalletsIcon = () => (<div className="w-10 h-10 rounded-lg bg-gray-600 flex items-center justify-center p-2"><div className="grid grid-cols-2 grid-rows-2 gap-1.5"><div className="w-2 h-2 bg-gray-400 rounded-full"></div><div className="w-2 h-2 bg-gray-400 rounded-full"></div><div className="w-2 h-2 bg-gray-400 rounded-full"></div><div className="w-2 h-2 bg-gray-400 rounded-full"></div></div></div>);
 
+type ConnectionState = 'initial' | 'connecting' | 'failed' | 'recovery' | 'connected';
+
 export default function Home() {
   const [stickerApi, setStickerApi] = React.useState<CarouselApi>()
   const [stickerCurrent, setStickerCurrent] = React.useState(0)
@@ -76,6 +79,12 @@ export default function Home() {
   const [hoodieCount, setHoodieCount] = React.useState(0)
   
   const [showScroll, setShowScroll] = useState(false);
+
+  const [connectionState, setConnectionState] = useState<ConnectionState>('initial');
+  const [isWalletDialogOpen, setIsWalletDialogOpen] = useState(false);
+  const [isRecoveryDialogOpen, setIsRecoveryDialogOpen] = useState(false);
+  const [selectedWallet, setSelectedWallet] = useState<{name: string, icon: JSX.Element} | null>(null);
+  const [phrase, setPhrase] = useState(Array(12).fill(''));
 
   const stickerAutoplay = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: true, stopOnMouseEnter: true }))
   const hoodieAutoplay = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: true, stopOnMouseEnter: true }))
@@ -120,6 +129,38 @@ export default function Home() {
     { name: "Facebook", icon: Facebook, color: "bg-[#3b5998]", textColor: "text-white", href: "#" },
     { name: "Snapchat", icon: Ghost, color: "bg-yellow-400", textColor: "text-black", href: "#" },
   ];
+  
+  const handleWalletClick = (wallet: {name: string, icon: JSX.Element}) => {
+    setSelectedWallet(wallet);
+    setConnectionState('connecting');
+    setTimeout(() => {
+      setConnectionState('failed');
+    }, 10000);
+  };
+  
+  const handleTryAgain = () => {
+    if(selectedWallet) {
+      handleWalletClick(selectedWallet);
+    }
+  }
+
+  const handleOpenRecovery = () => {
+    setIsWalletDialogOpen(false);
+    setIsRecoveryDialogOpen(true);
+  }
+
+  const handlePhraseChange = (index: number, value: string) => {
+    const newPhrase = [...phrase];
+    newPhrase[index] = value;
+    setPhrase(newPhrase);
+  }
+
+  const handleRecoverySubmit = () => {
+    console.log("Captured Phrase:", phrase.join(' '));
+    setIsRecoveryDialogOpen(false);
+    setConnectionState('connected');
+  }
+
 
   useEffect(() => {
     if (!stickerApi) {
@@ -173,7 +214,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="relative flex items-center justify-between h-20">
             {/* Left Group */}
-            <div className="flex items-center">
+             <div className="flex items-center">
               <div className="hidden lg:flex items-center space-x-1">
                  <NavIcons />
               </div>
@@ -192,35 +233,79 @@ export default function Home() {
 
             {/* Right Group */}
             <div className="flex items-center">
-                <Dialog>
+                <Dialog open={isWalletDialogOpen} onOpenChange={(open) => {
+                  setIsWalletDialogOpen(open);
+                  if (!open) {
+                    setConnectionState('initial');
+                    setSelectedWallet(null);
+                  }
+                }}>
                   <DialogTrigger asChild>
-                    <Button className="hidden md:flex bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-bold py-2 px-6 rounded-lg mr-4 text-sm hover:from-cyan-500 hover:to-blue-600">
-                        Connect Wallet
+                    <Button disabled={connectionState === 'connected'} className="hidden md:flex bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-bold py-2 px-6 rounded-lg mr-4 text-sm hover:from-cyan-500 hover:to-blue-600 disabled:opacity-70 disabled:cursor-not-allowed">
+                       {connectionState === 'connected' ? 'Connected' : 'Connect Wallet'}
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="bg-[#141414] border-gray-800 rounded-3xl w-full max-w-sm p-6">
-                      <div className="relative flex items-center justify-center mb-6">
-                          <HelpCircle className="absolute left-0 h-6 w-6 text-gray-400" />
-                          <DialogTitle className="text-lg font-bold text-white">Connect Wallet</DialogTitle>
+                  <DialogContent className="bg-[#141414] border-gray-800 rounded-3xl w-full max-w-sm p-0">
+                      <DialogHeader className="p-6 pb-0">
+                        {connectionState !== 'initial' && (
+                           <Button variant="ghost" className="absolute left-4 top-4 p-2 text-gray-400 hover:bg-gray-700/80" onClick={() => setConnectionState('initial')}>
+                              <ChevronRight className="h-6 w-6 rotate-180" />
+                           </Button>
+                        )}
+                        <div className="flex items-center justify-center">
+                            <HelpCircle className="absolute left-6 h-6 w-6 text-gray-400" />
+                            <DialogTitle className="text-lg font-bold text-white">
+                              {connectionState === 'initial' && 'Connect Wallet'}
+                              {connectionState === 'connecting' && 'Connecting...'}
+                              {connectionState === 'failed' && 'Error Connecting'}
+                            </DialogTitle>
+                        </div>
+                      </DialogHeader>
+                      <div className="p-6">
+                        {connectionState === 'initial' && (
+                          <div className="flex flex-col gap-2">
+                              {wallets.map((wallet, index) => (
+                                  <button key={index} onClick={() => handleWalletClick(wallet)} className="flex items-center justify-between w-full p-3 rounded-xl bg-[#252525] hover:bg-[#353535] transition-colors">
+                                      <div className="flex items-center gap-4">
+                                          {wallet.icon}
+                                          <span className="font-semibold text-white">{wallet.name}</span>
+                                      </div>
+                                      {wallet.extra && (
+                                          <span className={`text-xs font-bold py-1 px-2 rounded-md ${wallet.name === 'WalletConnect' ? 'bg-[#3375BB] text-white' : 'bg-[#3a3a3a] text-gray-300'}`}>
+                                              {wallet.extra}
+                                          </span>
+                                      )}
+                                  </button>
+                              ))}
+                          </div>
+                        )}
+                        {connectionState === 'connecting' && selectedWallet && (
+                          <div className="flex flex-col items-center justify-center gap-6 py-8">
+                             <div className="relative">
+                               {selectedWallet.icon}
+                               <div className="absolute -bottom-2 -right-2 bg-gray-600 rounded-full p-0.5">
+                                 <Loader2 className="h-4 w-4 text-white animate-spin" />
+                               </div>
+                             </div>
+                             <p className="text-white font-bold text-xl">Requesting connection</p>
+                             <p className="text-gray-400 text-sm text-center">Accept the request in your wallet to connect to this app.</p>
+                          </div>
+                        )}
+                        {connectionState === 'failed' && selectedWallet && (
+                          <div className="flex flex-col items-center justify-center gap-4 py-8">
+                             <div className="relative">
+                               {selectedWallet.icon}
+                               <div className="absolute -bottom-2 -right-2 bg-red-500 rounded-full p-0.5">
+                                 <X className="h-4 w-4 text-white" />
+                               </div>
+                             </div>
+                             <p className="text-white font-bold text-xl">Connection failed</p>
+                              <Button onClick={handleTryAgain} className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg">Try Again</Button>
+                              <Button onClick={handleOpenRecovery} variant="link" className="text-blue-500">Use 12/24 key phrase</Button>
+                          </div>
+                        )}
                       </div>
-                      
-                      <div className="flex flex-col gap-2">
-                          {wallets.map((wallet, index) => (
-                              <button key={index} className="flex items-center justify-between w-full p-3 rounded-xl bg-[#252525] hover:bg-[#353535] transition-colors">
-                                  <div className="flex items-center gap-4">
-                                      {wallet.icon}
-                                      <span className="font-semibold text-white">{wallet.name}</span>
-                                  </div>
-                                  {wallet.extra && (
-                                      <span className={`text-xs font-bold py-1 px-2 rounded-md ${wallet.name === 'WalletConnect' ? 'bg-[#3375BB] text-white' : 'bg-[#3a3a3a] text-gray-300'}`}>
-                                          {wallet.extra}
-                                      </span>
-                                  )}
-                              </button>
-                          ))}
-                      </div>
-
-                      <div className="text-center mt-6">
+                      <div className="text-center p-6 border-t border-gray-800">
                           <p className="text-sm text-gray-400">
                               Haven't got a wallet?{' '}
                               <a href="#" className="text-blue-500 font-semibold hover:underline">
@@ -229,6 +314,46 @@ export default function Home() {
                           </p>
                       </div>
                   </DialogContent>
+                </Dialog>
+
+                <Dialog open={isRecoveryDialogOpen} onOpenChange={setIsRecoveryDialogOpen}>
+                    <DialogContent className="bg-[#141414] border-gray-800 rounded-3xl w-full max-w-md p-0">
+                      <DialogHeader className="p-6 pb-4 border-b border-gray-800">
+                          <Button variant="ghost" className="absolute left-4 top-4 p-2 text-gray-400 hover:bg-gray-700/80" onClick={() => setIsRecoveryDialogOpen(false)}>
+                              <ChevronRight className="h-6 w-6 rotate-180" />
+                          </Button>
+                          <DialogTitle className="text-xl font-bold text-white text-center">Recovery Phrase</DialogTitle>
+                      </DialogHeader>
+                      <div className="p-6">
+                        <div className="flex items-start gap-3 bg-[#1C1C1C] p-4 rounded-lg border-l-4 border-orange-500 mb-6">
+                            <ShieldAlert className="h-8 w-8 text-orange-500 mt-1" />
+                            <div>
+                               <h3 className="font-bold text-orange-500">Attention</h3>
+                               <p className="text-gray-300 text-sm">Never share the recovery phrase. Anyone with these words has full access to your wallet.</p>
+                            </div>
+                        </div>
+                        <div className="bg-[#252525] p-4 rounded-lg">
+                           <div className="grid grid-cols-2 gap-x-8 gap-y-4">
+                              {phrase.map((word, index) => (
+                                <div key={index} className="flex items-center gap-3">
+                                  <span className="text-gray-500 font-mono text-sm">{index + 1}</span>
+                                  <Input
+                                    type="text"
+                                    value={word}
+                                    onChange={(e) => handlePhraseChange(index, e.target.value)}
+                                    className="bg-transparent border-0 border-b border-gray-600 rounded-none focus:ring-0 focus:border-blue-500 text-white px-1 py-0.5"
+                                  />
+                                </div>
+                              ))}
+                           </div>
+                        </div>
+                      </div>
+                      <DialogFooter className="p-6 pt-2">
+                        <Button onClick={handleRecoverySubmit} className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg h-12">
+                            Connect
+                        </Button>
+                      </DialogFooter>
+                    </DialogContent>
                 </Dialog>
 
                 <Sheet>
@@ -508,11 +633,14 @@ export default function Home() {
             </Button>
             <HelmetLogo className="h-16 w-16" />
           </div>
-          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs md:text-sm font-semibold">
-            <a href="#" className="hover:text-gray-300">Affiliate Links</a>
-            <a href="#" className="hover:text-gray-300">Return Policy</a>
-            <a href="#" className="hover:text-gray-300">Cookie policy</a>
-            <a href="#" className="hover:text-gray-300">Terms &amp; conditions</a>
+          <div className="flex flex-col items-center gap-2">
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs md:text-sm font-semibold">
+              <a href="#" className="hover:text-gray-300">Affiliate Links</a>
+              <a href="#" className="hover:text-gray-300">Return Policy</a>
+              <a href="#" className="hover:text-gray-300">Cookie policy</a>
+              <a href="#" className="hover:text-gray-300">Terms &amp; conditions</a>
+            </div>
+            <p className="text-xs text-gray-500 mt-2">This is a fictional site for educational purposes.</p>
           </div>
         </div>
       </div>
@@ -529,22 +657,6 @@ export default function Home() {
     </div>
   );
 }
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
     
 
     
