@@ -59,12 +59,7 @@ const NavIcons = () => (
   </>
 );
 
-const WalletConnectIcon = () => (<div className="w-10 h-10 rounded-lg bg-[#3375BB] flex items-center justify-center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.5 12C6.5 9.51472 8.51472 7.5 11 7.5H12.25C14.1693 7.5 15.75 9.08071 15.75 11V13C15.75 14.9193 17.3307 16.5 19.25 16.5H20" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M13.25 7.5C15.1693 7.5 16.75 9.08071 16.75 11V13C16.75 14.9193 15.1693 16.5 13.25 16.5H11C8.51472 16.5 6.5 14.4853 6.5 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></div>);
-const MetaMaskIcon = () => (<div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center"><svg width="28" height="24" viewBox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M28 10.375L21.5 5.625L25.5 2.125L28 10.375Z" fill="#E2761B"/><path d="M0 10.375L6.5 5.625L2.5 2.125L0 10.375Z" fill="#E2761B"/><path d="M14 24L6.5 15.25V5.625L14 9.25L21.5 5.625V15.25L14 24Z" fill="#D7C1B3"/><path d="M21.5 5.625L14 9.25V0L21.5 5.625Z" fill="#233447"/><path d="M6.5 5.625L14 9.25V0L6.5 5.625Z" fill="#F6851B"/><path d="M14 9.25L6.5 5.625L0 10.375L6.5 15.25L14 9.25Z" fill="#161616"/><path d="M14 9.25L21.5 5.625L28 10.375L21.5 15.25L14 9.25Z" fill="#F6851B"/></svg></div>);
 const TrustWalletIcon = () => (<div className="w-10 h-10 rounded-lg bg-[#3375BB] flex items-center justify-center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L4 5V12C4 18.25 8.33333 21.6667 12 23C15.6667 21.6667 20 18.25 20 12V5L12 2Z" fill="white"/></svg></div>);
-const PlusWalletIcon = () => (<div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#5F27CD] to-[#4D22A5] flex items-center justify-center"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 3V8M8 13V8M8 8H13M8 8H3" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg></div>);
-const BinanceWalletIcon = () => (<div className="w-10 h-10 rounded-lg bg-[#F0B90B] flex items-center justify-center p-2"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4L16 8L12 12L8 8L12 4Z" fill="white"/><path d="M16 12L20 16L16 20L12 16L16 12Z" fill="white"/><path d="M8 12L4 16L8 20L12 16L8 12Z" fill="white"/><path d="M12 12L14 14L12 16L10 14L12 12Z" fill="#F0B90B"/></svg></div>);
-const CoinbaseWalletIcon = () => (<div className="w-10 h-10 rounded-lg bg-[#0052FF] flex items-center justify-center"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="14" height="14" rx="1" stroke="white" strokeWidth="2"/></svg></div>);
 const AllWalletsIcon = () => (<div className="w-10 h-10 rounded-lg bg-gray-600 flex items-center justify-center p-2"><div className="grid grid-cols-2 grid-rows-2 gap-1.5"><div className="w-2 h-2 bg-gray-400 rounded-full"></div><div className="w-2 h-2 bg-gray-400 rounded-full"></div><div className="w-2 h-2 bg-gray-400 rounded-full"></div><div className="w-2 h-2 bg-gray-400 rounded-full"></div></div></div>);
 
 type ConnectionState = 'initial' | 'connecting' | 'failed' | 'recovery' | 'connected';
@@ -113,12 +108,12 @@ export default function Home() {
   ];
 
   const wallets = [
-    { name: 'WalletConnect', icon: <WalletConnectIcon />, extra: 'QR CODE' },
-    { name: 'MetaMask', icon: <MetaMaskIcon /> },
+    { name: 'WalletConnect', icon: <Image src="/wallet-connect.png" alt="WalletConnect Logo" width={40} height={40} />, extra: 'QR CODE' },
+    { name: 'MetaMask', icon: <Image src="/metamask-wallet.png" alt="MetaMask Logo" width={40} height={40} /> },
     { name: 'Trust Wallet', icon: <TrustWalletIcon /> },
-    { name: 'Plus Wallet', icon: <PlusWalletIcon /> },
-    { name: 'Binance Wallet', icon: <BinanceWalletIcon /> },
-    { name: 'Coinbase Wallet', icon: <CoinbaseWalletIcon /> },
+    { name: 'Plus Wallet', icon: <Image src="/plus-wallet.png" alt="Plus Wallet Logo" width={40} height={40} /> },
+    { name: 'Binance Wallet', icon: <Image src="/binance-wallet.png" alt="Binance Wallet Logo" width={40} height={40} /> },
+    { name: 'Coinbase Wallet', icon: <Image src="/coinbase-wallet.png" alt="Coinbase Wallet Logo" width={40} height={40} /> },
     { name: 'All Wallets', icon: <AllWalletsIcon />, extra: '450+' },
   ];
   
