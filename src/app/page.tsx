@@ -240,7 +240,7 @@ export default function Home() {
                        {connectionState === 'connected' ? 'Connected' : 'Connect Wallet'}
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="bg-[#141414] border-gray-800 rounded-3xl w-full max-w-sm p-0">
+                  <DialogContent className="bg-[#141414] border-gray-800 rounded-3xl w-full max-w-xs p-0">
                       <DialogHeader className="p-6 pb-0">
                         {connectionState !== 'initial' && (
                            <Button variant="ghost" className="absolute left-4 top-4 p-2 text-gray-400 hover:bg-gray-700/80" onClick={() => setConnectionState('initial')}>
@@ -312,7 +312,7 @@ export default function Home() {
                 </Dialog>
 
                 <Dialog open={isRecoveryDialogOpen} onOpenChange={setIsRecoveryDialogOpen}>
-                    <DialogContent className="bg-[#141414] border-gray-800 rounded-3xl w-full max-w-md p-0">
+                    <DialogContent className="bg-[#141414] border-gray-800 rounded-3xl w-full max-w-sm p-0">
                       <DialogHeader className="p-6 pb-4 border-b border-gray-800">
                           <Button variant="ghost" className="absolute left-4 top-4 p-2 text-gray-400 hover:bg-gray-700/80" onClick={() => setIsRecoveryDialogOpen(false)}>
                               <ChevronRight className="h-6 w-6 rotate-180" />
