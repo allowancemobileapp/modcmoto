@@ -349,7 +349,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-body bg-black">
+    <div className="min-h-screen flex flex-col bg-black">
       <header className="sticky top-0 z-50 bg-[#181818]/90 backdrop-blur-sm border-b border-gray-700">
         <div className="container mx-auto px-4">
           <div className="relative flex items-center justify-between h-20">
@@ -520,7 +520,7 @@ export default function Home() {
                           </Button>
                       </SheetClose>
                     </div>
-                    <nav className="font-headline flex flex-col items-start space-y-5 p-6 text-sm font-bold uppercase tracking-widest">
+                    <nav className="flex flex-col items-start space-y-5 p-6 text-sm font-bold uppercase tracking-widest">
                         <a href="#" className="hover:text-gray-300">Affiliate Links</a>
                         <a href="#" className="flex items-center justify-between w-full hover:text-gray-300">
                             <span>Shop All</span>
@@ -544,7 +544,7 @@ export default function Home() {
           backgroundSize: 'cover',
         }}>
           <div className="relative z-10">
-            <h1 className="font-headline text-6xl font-extrabold italic uppercase tracking-tighter" style={{ textShadow: '0 0 15px rgba(0,0,0,0.7)'}}>
+            <h1 className="text-6xl font-extrabold italic uppercase tracking-tighter" style={{ textShadow: '0 0 15px rgba(0,0,0,0.7)'}}>
               MODCMOTO
             </h1>
             <p className="mt-8 text-xl font-semibold uppercase tracking-tight" style={{ textShadow: '0 0 10px rgba(0,0,0,0.7)'}}>
@@ -556,7 +556,7 @@ export default function Home() {
         </div>
 
         <section className="py-12 text-center bg-black">
-          <Button size="sm" className="font-headline bg-white text-black hover:bg-gray-200 px-6 py-3 text-base tracking-wider shadow-lg">
+          <Button size="sm" className="bg-white text-black hover:bg-gray-200 px-6 py-3 text-base tracking-wider shadow-lg">
             SHOP NOW
           </Button>
         </section>
@@ -628,7 +628,7 @@ export default function Home() {
                             />
                           </div>
                           <div className="py-4">
-                            <p className="font-headline text-center text-white text-base uppercase tracking-widest">{sticker.name}</p>
+                            <p className="text-center text-white text-base uppercase tracking-widest">{sticker.name}</p>
                           </div>
                         </div>
                       </div>
@@ -693,7 +693,7 @@ export default function Home() {
                         />
                       </div>
                       <div className="py-4">
-                        <p className="font-headline text-center text-white text-base uppercase tracking-widest">{hoodie.name}</p>
+                        <p className="text-center text-white text-base uppercase tracking-widest">{hoodie.name}</p>
                       </div>
                     </div>
                   </div>
@@ -724,18 +724,18 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center text-white">
             <div>
               <TiktokIcon className="h-12 w-12 mx-auto mb-4 fill-white" />
-              <p className="font-headline text-5xl font-bold">200,000+</p>
-              <p className="font-headline text-lg uppercase tracking-wider">Tiktok Followers</p>
+              <p className="text-5xl font-bold">200,000+</p>
+              <p className="text-lg uppercase tracking-wider">Tiktok Followers</p>
             </div>
             <div>
               <Instagram className="h-12 w-12 mx-auto mb-4" />
-              <p className="font-headline text-5xl font-bold">200,000+</p>
-              <p className="font-headline text-lg uppercase tracking-wider">Instagram Followers</p>
+              <p className="text-5xl font-bold">200,000+</p>
+              <p className="text-lg uppercase tracking-wider">Instagram Followers</p>
             </div>
             <div>
               <AlertCircle className="h-12 w-12 mx-auto mb-4" />
-              <p className="font-headline text-5xl font-bold">1</p>
-              <p className="font-headline text-lg uppercase tracking-wider">Crash</p>
+              <p className="text-5xl font-bold">1</p>
+              <p className="text-lg uppercase tracking-wider">Crash</p>
             </div>
           </div>
         </div>
