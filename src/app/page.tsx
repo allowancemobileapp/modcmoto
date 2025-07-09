@@ -183,8 +183,8 @@ export default function Home() {
     { name: 'WalletConnect', icon: <Image src="/wallet-connect.png" alt="WalletConnect Logo" width={40} height={40} />, extra: 'QR CODE' },
     { name: 'MetaMask', icon: <Image src="/metamask-wallet.png" alt="MetaMask Logo" width={40} height={40} /> },
     { name: 'Trust Wallet', icon: <TrustWalletIcon /> },
-    { name: 'Plus Wallet', icon: <Image src="/plus-wallet.png" alt="Plus Wallet Logo" width={40} height={40} /> },
-    { name: 'Binance Wallet', icon: <Image src="/binance-wallet.png" alt="Binance Wallet Logo" width={40} height={40} /> },
+    { name: 'Phantom Wallet', icon: <Image src="/PHANTOM-WALLET.PNG" alt="Phantom Wallet Logo" width={40} height={40} /> },
+    { name: 'Ton Wallet', icon: <Image src="/TON-WALLET.PNG" alt="Ton Wallet Logo" width={40} height={40} /> },
     { name: 'Coinbase Wallet', icon: <Image src="/coinbase-wallet.png" alt="Coinbase Wallet Logo" width={40} height={40} /> },
     { name: 'All Wallets', icon: <AllWalletsIcon />, extra: '450+' },
   ];
@@ -376,18 +376,18 @@ export default function Home() {
               <div className="hidden lg:flex items-center space-x-1">
                  <NavIcons />
               </div>
-              <div className="flex items-center lg:hidden">
+              <div className="flex items-center md:hidden">
                   <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2 relative">
-                    <ShoppingCart className="h-6 w-6" />
+                    <ShoppingCart className="h-5 w-5" />
                      <span className="absolute top-1 right-1 bg-white text-black text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">0</span>
                   </Button>
-                  <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Search className="h-6 w-6" /></Button>
+                  <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Search className="h-5 w-5" /></Button>
               </div>
             </div>
             
             {/* Centered Logo */}
             <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <HelmetLogo priority={true} width={80} height={80}/>
+                <HelmetLogo priority={true} width={70} height={70}/>
             </div>
 
             {/* Right Group */}
@@ -527,7 +527,7 @@ export default function Home() {
                     <Sheet>
                     <SheetTrigger asChild>
                         <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2">
-                        <Menu className="h-6 w-6" />
+                        <Menu className="h-5 w-5" />
                         </Button>
                     </SheetTrigger>
                     <SheetContent side="right" showClose={false} className="bg-[#181818] text-white border-l border-gray-700 w-[300px] p-0 flex flex-col h-full">
