@@ -382,7 +382,7 @@ export default function Home() {
                   }
                 }}>
                   <DialogTrigger asChild>
-                    <Button disabled={connectionState === 'connected'} className="hidden md:flex bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-bold py-2 px-6 rounded-lg mr-4 text-sm hover:from-cyan-500 hover:to-blue-600 disabled:opacity-70 disabled:cursor-not-allowed">
+                    <Button disabled={connectionState === 'connected'} className="hidden lg:flex bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-bold py-2 px-6 rounded-lg mr-4 text-sm hover:from-cyan-500 hover:to-blue-600 disabled:opacity-70 disabled:cursor-not-allowed">
                        {connectionState === 'connected' ? 'Connected' : 'Connect Wallet'}
                     </Button>
                   </DialogTrigger>
@@ -510,7 +510,7 @@ export default function Home() {
                       <Menu className="h-8 w-8" />
                     </Button>
                   </SheetTrigger>
-                  <SheetContent side="right" showClose={false} className="bg-[#181818] text-white border-l border-gray-700 w-[300px] p-0">
+                  <SheetContent side="right" showClose={false} className="bg-[#181818] text-white border-l border-gray-700 w-[300px] p-0 flex flex-col h-full">
                     <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
                     <div className="flex items-center justify-between p-4 border-b border-gray-700">
                       <HelmetLogo width={40} height={40}/>
@@ -520,7 +520,7 @@ export default function Home() {
                           </Button>
                       </SheetClose>
                     </div>
-                    <nav className="flex flex-col items-start space-y-5 p-6 text-sm font-bold uppercase tracking-widest">
+                    <nav className="flex flex-col items-start space-y-5 p-6 text-sm font-bold uppercase tracking-widest flex-grow">
                         <a href="#" className="hover:text-gray-300">Affiliate Links</a>
                         <a href="#" className="flex items-center justify-between w-full hover:text-gray-300">
                             <span>Shop All</span>
@@ -529,6 +529,58 @@ export default function Home() {
                         <a href="#" className="hover:text-gray-300">Modcmoto Merch</a>
                         <a href="#" className="hover:text-gray-300">Me Go Fast Merch</a>
                     </nav>
+                     <div className="p-6 border-t border-gray-700">
+                        <div className="flex items-center justify-center space-x-2">
+                            <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Instagram className="h-5 w-5" /></Button>
+                            <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Youtube className="h-5 w-5" /></Button>
+                            <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Facebook className="h-5 w-5" /></Button>
+                            <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Ghost className="h-5 w-5" /></Button>
+                            <Dialog open={isAuthDialogOpen} onOpenChange={setIsAuthDialogOpen}>
+                                <DialogTrigger asChild>
+                                    <Button variant="ghost" className="text-white hover:bg-gray-700/80 p-2 flex items-center gap-2" onClick={() => user ? handleLogout() : setIsAuthDialogOpen(true)}>
+                                        <User className="h-5 w-5" />
+                                        <span className="text-sm font-semibold">{user ? "Logout" : "Login"}</span>
+                                    </Button>
+                                </DialogTrigger>
+                                <DialogContent className="bg-[#141414] border-gray-800 rounded-3xl w-full max-w-sm p-0">
+                                    <Tabs defaultValue="login" className="w-full">
+                                      <TabsList className="grid w-full grid-cols-2 bg-[#252525] rounded-t-3xl rounded-b-none h-14">
+                                        <TabsTrigger value="login" className="text-base font-bold data-[state=active]:bg-[#141414] data-[state=active]:text-white text-gray-400 rounded-tl-3xl h-full">Login</TabsTrigger>
+                                        <TabsTrigger value="signup" className="text-base font-bold data-[state=active]:bg-[#141414] data-[state=active]:text-white text-gray-400 rounded-tr-3xl h-full">Sign Up</TabsTrigger>
+                                      </TabsList>
+                                      <TabsContent value="login" className="p-6">
+                                        <form onSubmit={handleLogin} className="flex flex-col gap-4">
+                                          <div className="space-y-2">
+                                              <Label htmlFor="mobile-login-email" className="text-white">Email</Label>
+                                              <Input id="mobile-login-email" type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} className="bg-[#252525] border-gray-600 text-white" />
+                                          </div>
+                                            <div className="space-y-2">
+                                              <Label htmlFor="mobile-login-password"className="text-white">Password</Label>
+                                              <Input id="mobile-login-password" type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} className="bg-[#252525] border-gray-600 text-white" />
+                                          </div>
+                                          {authError && <p className="text-sm text-destructive">{authError}</p>}
+                                          <Button type="submit" className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg h-12 mt-4">Login</Button>
+                                        </form>
+                                      </TabsContent>
+                                      <TabsContent value="signup" className="p-6">
+                                        <form onSubmit={handleSignUp} className="flex flex-col gap-4">
+                                          <div className="space-y-2">
+                                              <Label htmlFor="mobile-signup-email" className="text-white">Email</Label>
+                                              <Input id="mobile-signup-email" type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} className="bg-[#252525] border-gray-600 text-white" />
+                                          </div>
+                                            <div className="space-y-2">
+                                              <Label htmlFor="mobile-signup-password"className="text-white">Password</Label>
+                                              <Input id="mobile-signup-password" type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} className="bg-[#252525] border-gray-600 text-white" />
+                                          </div>
+                                          {authError && <p className="text-sm text-destructive">{authError}</p>}
+                                          <Button type="submit" className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg h-12 mt-4">Create Account</Button>
+                                        </form>
+                                      </TabsContent>
+                                    </Tabs>
+                                </DialogContent>
+                            </Dialog>
+                        </div>
+                    </div>
                   </SheetContent>
                 </Sheet>
             </div>
@@ -805,3 +857,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
