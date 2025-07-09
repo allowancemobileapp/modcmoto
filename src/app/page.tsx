@@ -529,7 +529,14 @@ export default function Home() {
                         <a href="#" className="hover:text-gray-300">Modcmoto Merch</a>
                         <a href="#" className="hover:text-gray-300">Me Go Fast Merch</a>
                     </nav>
-                     <div className="p-6 border-t border-gray-700">
+                     <div className="p-6 border-t border-gray-700 space-y-4">
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <Button disabled={connectionState === 'connected'} className="w-full bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-bold rounded-lg text-sm hover:from-cyan-500 hover:to-blue-600 disabled:opacity-70 disabled:cursor-not-allowed">
+                                    {connectionState === 'connected' ? 'Connected' : 'Connect Wallet'}
+                                </Button>
+                            </DialogTrigger>
+                        </Dialog>
                         <div className="flex items-center justify-center space-x-2">
                             <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Instagram className="h-5 w-5" /></Button>
                             <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Youtube className="h-5 w-5" /></Button>
@@ -857,5 +864,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
