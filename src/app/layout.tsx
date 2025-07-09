@@ -1,11 +1,9 @@
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
-import { Inter } from 'next/font/google';
-import { Space_Grotesk } from 'next/font/google';
+import { Montserrat } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-space-grotesk' });
+const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-montserrat' });
 
 export const metadata: Metadata = {
   title: 'ModCMoto',
@@ -18,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`dark ${inter.variable} ${spaceGrotesk.variable}`}>
+    <html lang="en" className={`dark ${montserrat.variable}`}>
       <body className="font-body antialiased">
         {children}
         <Toaster />

@@ -17,8 +17,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        body: ['var(--font-inter)', 'sans-serif'],
-        headline: ['var(--font-space-grotesk)', 'sans-serif'],
+        body: ['var(--font-montserrat)', 'sans-serif'],
+        headline: ['var(--font-montserrat)', 'sans-serif'],
       },
       colors: {
         background: 'hsl(var(--background))',
