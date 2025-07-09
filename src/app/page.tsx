@@ -142,6 +142,10 @@ export default function Home() {
               </Button>
           </DialogTrigger>
           <DialogContent className="bg-[#141414] border-gray-800 rounded-3xl w-full max-w-sm p-0">
+             <DialogHeader className="sr-only">
+                <DialogTitle>Authentication</DialogTitle>
+                <DialogDescription>Log in or sign up to continue.</DialogDescription>
+             </DialogHeader>
              <Tabs defaultValue="login" className="w-full">
                 <TabsList className="grid w-full grid-cols-2 bg-[#252525] rounded-t-3xl rounded-b-none h-14">
                   <TabsTrigger value="login" className="text-base font-bold data-[state=active]:bg-[#141414] data-[state=active]:text-white text-gray-400 rounded-tl-3xl h-full">Login</TabsTrigger>
@@ -550,6 +554,10 @@ export default function Home() {
                                         </Button>
                                     </DialogTrigger>
                                     <DialogContent className="bg-[#141414] border-gray-800 rounded-3xl w-full max-w-sm p-0">
+                                        <DialogHeader className="sr-only">
+                                            <DialogTitle>Authentication</DialogTitle>
+                                            <DialogDescription>Log in or sign up to continue.</DialogDescription>
+                                        </DialogHeader>
                                         <Tabs defaultValue="login" className="w-full">
                                         <TabsList className="grid w-full grid-cols-2 bg-[#252525] rounded-t-3xl rounded-b-none h-14">
                                             <TabsTrigger value="login" className="text-base font-bold data-[state=active]:bg-[#141414] data-[state=active]:text-white text-gray-400 rounded-tl-3xl h-full">Login</TabsTrigger>
