@@ -362,17 +362,18 @@ export default function Home() {
               <div className="hidden lg:flex items-center space-x-1">
                  <NavIcons />
               </div>
-              <div className="lg:hidden">
+              <div className="flex items-center lg:hidden">
                   <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2 relative">
-                    <ShoppingCart className="h-8 w-8" />
+                    <ShoppingCart className="h-6 w-6" />
                      <span className="absolute top-1 right-1 bg-white text-black text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">0</span>
                   </Button>
+                  <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Search className="h-6 w-6" /></Button>
               </div>
             </div>
             
             {/* Centered Logo */}
             <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <HelmetLogo priority={true} width={96} height={96}/>
+                <HelmetLogo priority={true} width={80} height={80}/>
             </div>
 
             {/* Right Group */}
@@ -386,7 +387,7 @@ export default function Home() {
                   }
                 }}>
                   <DialogTrigger asChild>
-                    <Button disabled={connectionState === 'connected'} className="hidden md:flex bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-bold py-2 px-6 rounded-lg mr-4 text-sm hover:from-cyan-500 hover:to-blue-600 disabled:opacity-70 disabled:cursor-not-allowed">
+                    <Button disabled={connectionState === 'connected'} className="hidden lg:flex bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-bold py-2 px-6 rounded-lg mr-4 text-sm hover:from-cyan-500 hover:to-blue-600 disabled:opacity-70 disabled:cursor-not-allowed">
                        {connectionState === 'connected' ? 'Connected' : 'Connect Wallet'}
                     </Button>
                   </DialogTrigger>
@@ -508,11 +509,11 @@ export default function Home() {
                     </DialogContent>
                 </Dialog>
 
-                <div className="md:hidden">
+                <div className="lg:hidden">
                     <Sheet>
                     <SheetTrigger asChild>
                         <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2">
-                        <Menu className="h-8 w-8" />
+                        <Menu className="h-6 w-6" />
                         </Button>
                     </SheetTrigger>
                     <SheetContent side="right" showClose={false} className="bg-[#181818] text-white border-l border-gray-700 w-[300px] p-0 flex flex-col h-full">
@@ -542,10 +543,6 @@ export default function Home() {
                                 {connectionState === 'connected' ? 'Connected' : 'Connect Wallet'}
                             </Button>
                             <div className="flex items-center justify-center space-x-2">
-                                <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Instagram className="h-5 w-5" /></Button>
-                                <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Youtube className="h-5 w-5" /></Button>
-                                <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Facebook className="h-5 w-5" /></Button>
-                                <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Ghost className="h-5 w-5" /></Button>
                                 <Dialog open={isAuthDialogOpen} onOpenChange={setIsAuthDialogOpen}>
                                     <DialogTrigger asChild>
                                         <Button variant="ghost" className="text-white hover:bg-gray-700/80 p-2 flex items-center gap-2" onClick={() => user ? handleLogout() : setIsAuthDialogOpen(true)}>
@@ -594,6 +591,10 @@ export default function Home() {
                                         </Tabs>
                                     </DialogContent>
                                 </Dialog>
+                                <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Instagram className="h-5 w-5" /></Button>
+                                <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Youtube className="h-5 w-5" /></Button>
+                                <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Facebook className="h-5 w-5" /></Button>
+                                <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Ghost className="h-5 w-5" /></Button>
                             </div>
                         </div>
                     </SheetContent>
