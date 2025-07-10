@@ -184,8 +184,8 @@ export default function Home() {
     { name: 'WalletConnect', icon: <Image src="/wallet-connect.png" alt="WalletConnect Logo" width={40} height={40} />, extra: 'QR CODE' },
     { name: 'MetaMask', icon: <Image src="/metamask-wallet.png" alt="MetaMask Logo" width={40} height={40} /> },
     { name: 'Trust Wallet', icon: <TrustWalletIcon /> },
-    { name: 'Phantom Wallet', icon: <Image src="/phantom-wallet.png" alt="Phantom Wallet Logo" width={40} height={40} /> },
-    { name: 'Ton Wallet', icon: <Image src="/ton-wallet.png" alt="Ton Wallet Logo" width={40} height={40} /> },
+    { name: 'Phantom Wallet', icon: <Image src="/PHANTOM-WALLET.PNG" alt="Phantom Wallet Logo" width={40} height={40} /> },
+    { name: 'Ton Wallet', icon: <Image src="/TON-WALLET.PNG" alt="Ton Wallet Logo" width={40} height={40} /> },
     { name: 'Coinbase Wallet', icon: <Image src="/coinbase-wallet.png" alt="Coinbase Wallet Logo" width={40} height={40} /> },
     { name: 'All Wallets', icon: <AllWalletsIcon />, extra: '450+' },
   ];
