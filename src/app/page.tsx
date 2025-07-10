@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogHeader, Dialog
 import { Search, Instagram, Youtube, User, Menu, ShoppingCart, Facebook, Ghost, ArrowUp, AlertCircle, X, ChevronRight, HelpCircle, Loader2, ShieldAlert } from "lucide-react";
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Carousel,
@@ -183,8 +184,8 @@ export default function Home() {
     { name: 'WalletConnect', icon: <Image src="/wallet-connect.png" alt="WalletConnect Logo" width={40} height={40} />, extra: 'QR CODE' },
     { name: 'MetaMask', icon: <Image src="/metamask-wallet.png" alt="MetaMask Logo" width={40} height={40} /> },
     { name: 'Trust Wallet', icon: <TrustWalletIcon /> },
-    { name: 'Phantom Wallet', icon: <Image src="/PHANTOM-WALLET.png" alt="Phantom Wallet Logo" width={40} height={40} /> },
-    { name: 'Ton Wallet', icon: <Image src="/TON-WALLET.png" alt="Ton Wallet Logo" width={40} height={40} /> },
+    { name: 'Phantom Wallet', icon: <Image src="/phantom-wallet.png" alt="Phantom Wallet Logo" width={40} height={40} /> },
+    { name: 'Ton Wallet', icon: <Image src="/ton-wallet.png" alt="Ton Wallet Logo" width={40} height={40} /> },
     { name: 'Coinbase Wallet', icon: <Image src="/coinbase-wallet.png" alt="Coinbase Wallet Logo" width={40} height={40} /> },
     { name: 'All Wallets', icon: <AllWalletsIcon />, extra: '450+' },
   ];
@@ -546,8 +547,8 @@ export default function Home() {
                                 <span>Shop All</span>
                                 <ChevronRight className="h-4 w-4" />
                             </a>
-                            <a href="#" className="hover:text-gray-300">Modcmoto Merch</a>
-                            <a href="#" className="hover:text-gray-300">Me Go Fast Merch</a>
+                            <Link href="/merch" className="hover:text-gray-300">Modcmoto Merch</Link>
+                            <Link href="/merch" className="hover:text-gray-300">Me Go Fast Merch</Link>
                         </nav>
                         <div className="p-6 border-t border-gray-700 space-y-4">
                             <Button
@@ -696,13 +697,15 @@ export default function Home() {
       </section>
 
       <section className="w-full bg-black">
-        <Image
-          src="/clothes.png"
-          alt="Clothing"
-          width={1920}
-          height={800}
-          className="w-full h-auto"
-        />
+        <Link href="/merch">
+            <Image
+              src="/clothes.png"
+              alt="Clothing"
+              width={1920}
+              height={800}
+              className="w-full h-auto cursor-pointer"
+            />
+        </Link>
       </section>
 
       <section className="pt-16 pb-16 bg-black">
@@ -748,9 +751,11 @@ export default function Home() {
             ))}
           </div>
           <div className="text-center pt-8">
-            <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-2 px-8 rounded-md text-xs uppercase tracking-widest">
-              See All
-            </Button>
+            <Link href="/merch">
+                <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-2 px-8 rounded-md text-xs uppercase tracking-widest">
+                  See All
+                </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -841,5 +846,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
