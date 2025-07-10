@@ -575,7 +575,7 @@ export default function Home() {
       
       <main className="flex-grow">
         <div className="flex flex-col items-center justify-center text-center p-4 min-h-[calc(100vh-80px)]" style={{
-          backgroundImage: `url("/me-go-fast-bg.jpeg")`,
+          backgroundImage: `url("/me-go-fast-bg.jpg")`,
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center',
           backgroundSize: 'cover',
