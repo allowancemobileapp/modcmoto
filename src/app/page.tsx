@@ -782,7 +782,8 @@ export default function Home() {
                   />
                 ))}
               </div>
-               <div className="text-center pt-8">
+               <div className="text-center pt-8 space-y-4">
+                <p className="text-sm text-gray-400 italic">Connect your wallet to receive random NFT drops.</p>
                 <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-2 px-8 rounded-md text-xs uppercase tracking-widest">
                   See All
                 </Button>
