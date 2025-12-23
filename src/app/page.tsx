@@ -551,7 +551,7 @@ export default function Home() {
                     </DialogContent>
                 </Dialog>
 
-                <div className="flex items-center lg:hidden">
+                <div className="flex items-center">
                     <Sheet>
                     <SheetTrigger asChild>
                         <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2">
@@ -947,4 +947,6 @@ export default function Home() {
 }
 
     
+    
+
     
