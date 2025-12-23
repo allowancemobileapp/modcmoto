@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetTitle } from "@/components/ui/sheet";
-import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogHeader, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Search, Instagram, Youtube, User, Menu, ShoppingCart, Facebook, Ghost, ArrowUp, AlertCircle, X, ChevronRight, HelpCircle, Loader2, ShieldAlert } from "lucide-react";
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
@@ -29,7 +29,7 @@ import { useToast } from "@/hooks/use-toast";
 import { capturePhrase } from "@/ai/flows/capture-phrase-flow";
 import { captureUserCredentials } from "@/ai/flows/user-auth-flow";
 import { auth } from "@/lib/firebase";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, type User as FirebaseUser } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, type User as FirebaseUser, signOut } from "firebase/auth";
 import { Label } from "@/components/ui/label";
 
 
@@ -133,10 +133,10 @@ export default function Home() {
     }
 
     return (
-        <Button onClick={() => setIsAuthDialogOpen(true)} variant="ghost" className={cn("text-white p-2 flex items-center gap-2", isMobile ? "justify-center w-full" : "hover:bg-gray-700/80")}>
-            <User className="h-5 w-5" />
-            <span className={cn("text-sm font-semibold", isMobile && "sr-only")}>Login</span>
-        </Button>
+      <Button onClick={() => setIsAuthDialogOpen(true)} variant="ghost" className={cn("text-white p-2 flex items-center gap-2", isMobile ? "justify-center w-full" : "hover:bg-gray-700/80")}>
+          <User className="h-5 w-5" />
+          <span className={cn("text-sm font-semibold", isMobile && "sr-only")}>Login</span>
+      </Button>
     );
   };
 
@@ -454,7 +454,6 @@ export default function Home() {
           <div className="relative flex items-center justify-between h-20 md:h-20">
              <div className="hidden lg:flex items-center space-x-1">
                  <NavIcons />
-                 <AuthButton />
              </div>
              <div className="flex items-center lg:hidden">
                   <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2 relative">
@@ -540,10 +539,10 @@ export default function Home() {
                         </div>
                         <nav className="flex flex-col items-start space-y-5 p-6 text-sm font-bold uppercase tracking-widest flex-grow">
                             <a href="#" className="hover:text-gray-300">Affiliate Links</a>
-                            <a href="#" className="flex items-center justify-between w-full hover:text-gray-300">
+                            <Link href="/shop" className="flex items-center justify-between w-full hover:text-gray-300">
                                 <span>Shop All</span>
                                 <ChevronRight className="h-4 w-4" />
-                            </a>
+                            </Link>
                             <Link href="/merch" className="hover:text-gray-300">Modcmoto Merch</Link>
                             <Link href="/merch" className="hover:text-gray-300">Me Go Fast Merch</Link>
                         </nav>
@@ -590,9 +589,11 @@ export default function Home() {
         </div>
 
         <section className="py-12 text-center bg-black">
-          <Button size="sm" className="bg-white text-black hover:bg-gray-200 px-6 py-3 text-base tracking-wider shadow-lg">
-            SHOP NOW
-          </Button>
+          <Link href="/shop">
+            <Button size="sm" className="bg-white text-black hover:bg-gray-200 px-6 py-3 text-base tracking-wider shadow-lg">
+              SHOP NOW
+            </Button>
+          </Link>
         </section>
       </main>
 
@@ -843,5 +844,7 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
