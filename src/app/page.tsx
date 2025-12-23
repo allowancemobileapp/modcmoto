@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetTitle } from "@/components/ui/sheet";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Search, Instagram, Youtube, User, Menu, ShoppingCart, Facebook, Ghost, ArrowUp, AlertCircle, X, ChevronRight, HelpCircle, Loader2, ShieldAlert } from "lucide-react";
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
@@ -450,7 +450,7 @@ export default function Home() {
 
 
       <header className="sticky top-0 z-50 bg-[#181818]/90 backdrop-blur-sm border-b border-gray-700">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-8 lg:px-16">
           <div className="relative flex items-center justify-between h-20 md:h-20">
              <div className="hidden lg:flex items-center space-x-1">
                  <NavIcons />
@@ -576,7 +576,7 @@ export default function Home() {
           backgroundPosition: 'center',
           backgroundSize: 'cover',
         }}>
-          <div className="relative z-10">
+          <div className="relative z-10 container mx-auto px-4 md:px-8 lg:px-16">
             <h1 className="text-6xl font-extrabold italic uppercase tracking-tighter" style={{ textShadow: '0 0 15px rgba(0,0,0,0.7)'}}>
               MODCMOTO
             </h1>
@@ -589,16 +589,18 @@ export default function Home() {
         </div>
 
         <section className="py-12 text-center bg-black">
+         <div className="container mx-auto px-4 md:px-8 lg:px-16">
           <Link href="/shop">
             <Button size="sm" className="bg-white text-black hover:bg-gray-200 px-6 py-3 text-base tracking-wider shadow-lg">
               SHOP NOW
             </Button>
           </Link>
+          </div>
         </section>
       </main>
 
       <section className="py-10 bg-black">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-8 lg:px-16">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
             <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-3 px-4 rounded-lg text-sm uppercase flex items-center justify-center gap-2">
                 <Instagram className="h-5 w-5" />
@@ -625,7 +627,7 @@ export default function Home() {
       </section>
 
       <section className="py-16 bg-black">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-8 lg:px-16">
           <Tabs defaultValue="stickers" className="w-full">
             <div className="flex justify-center mb-10">
               <TabsList className="bg-transparent border border-zinc-700 rounded-none p-0 h-auto">
@@ -695,19 +697,21 @@ export default function Home() {
       </section>
 
       <section className="w-full bg-black">
-        <Link href="/merch">
-            <Image
-              src="/clothes.png"
-              alt="Clothing"
-              width={1920}
-              height={800}
-              className="w-full h-auto cursor-pointer"
-            />
-        </Link>
+        <div className="container mx-auto px-4 md:px-8 lg:px-16">
+            <Link href="/merch">
+                <Image
+                src="/clothes.png"
+                alt="Clothing"
+                width={1920}
+                height={800}
+                className="w-full h-auto cursor-pointer"
+                />
+            </Link>
+        </div>
       </section>
 
       <section className="pt-16 pb-16 bg-black">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-8 lg:px-16">
           <Carousel 
             setApi={setHoodieApi} 
             plugins={[hoodieAutoplay.current]}
@@ -759,7 +763,7 @@ export default function Home() {
       </section>
 
       <section className="py-16 bg-gradient-to-r from-violet-500 via-fuchsia-500 to-cyan-400">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 md:px-8 lg:px-16">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center text-white">
             <div>
               <TiktokIcon className="h-12 w-12 mx-auto mb-4 fill-white" />
@@ -781,7 +785,7 @@ export default function Home() {
       </section>
       
       <footer className="bg-[#181818] text-white">
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 md:px-8 lg:px-16 py-8">
           <div className="flex flex-wrap justify-between items-center gap-8">
             <div className="flex items-center gap-3">
               {footerSocials.map((social) => (
@@ -808,7 +812,7 @@ export default function Home() {
       </footer>
 
       <div className="bg-[#181818] border-t border-gray-700 py-4">
-        <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-y-4">
+        <div className="container mx-auto px-4 md:px-8 lg:px-16 flex flex-col md:flex-row justify-between items-center gap-y-4">
           <div className="flex items-center gap-4">
             <Button
               variant="ghost"
@@ -844,7 +848,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
-
-    
