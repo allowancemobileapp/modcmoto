@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetTitle } from "@/components/ui/sheet";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogFooter, DialogTitle } from "@/components/ui/dialog";
 import { Search, Instagram, Youtube, User, Menu, ShoppingCart, Facebook, Ghost, ArrowUp, AlertCircle, X, ChevronRight, HelpCircle, Loader2, ShieldAlert } from "lucide-react";
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
@@ -61,6 +61,10 @@ export default function Home() {
   const [hoodieApi, setHoodieApi] = React.useState<CarouselApi>()
   const [hoodieCurrent, setHoodieCurrent] = React.useState(0)
   const [hoodieCount, setHoodieCount] = React.useState(0)
+
+  const [nftApi, setNftApi] = React.useState<CarouselApi>()
+  const [nftCurrent, setNftCurrent] = React.useState(0)
+  const [nftCount, setNftCount] = React.useState(0)
   
   const [showScroll, setShowScroll] = useState(false);
 
@@ -80,6 +84,7 @@ export default function Home() {
 
   const stickerAutoplay = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: true, stopOnMouseEnter: true }))
   const hoodieAutoplay = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: true, stopOnMouseEnter: true }))
+  const nftAutoplay = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: true, stopOnMouseEnter: true }))
   
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -175,7 +180,21 @@ export default function Home() {
     { name: 'MODCMOTO HOODIE', src: '/MODCMOTO-HOODIE.jpg', hint: 'brand hoodie' },
     { name: 'FAST T-SHIRT', src: '/FAST-T-SHIRT.jpg', hint: 'fast tshirt' },
     { name: '[WHITE] ME GO FAST HOODIE', src: '/[WHITE]-ME-GO-FAST-HOODIE.jpg', hint: 'white hoodie' },
-    { name: '[BLACK] CRAZY SPEED HOODIE', src: '/[BLACK]-CRAZY-SPEED-HOODIE.jpg', hint: 'black hoodie' },
+    { name: '[BLACK] CRAZY SPEED HOODIE', src: '/[BLACK]-CRAZY-SPEED-HOODie.jpg', hint: 'black hoodie' },
+  ];
+
+  const nfts = [
+    { name: 'MINI-MOD-CAT-HEAD', src: 'https://ooeltztitcjyuvsqjrls.supabase.co/storage/v1/object/public/NFTs/MINI-MOD-CAT-HEAD.png', hint: 'cat head' },
+    { name: 'MINI-MOD-CHICKEN-HEAD', src: 'https://ooeltztitcjyuvsqjrls.supabase.co/storage/v1/object/public/NFTs/MINI-MOD-CHICKEN-HEAD.png', hint: 'chicken head' },
+    { name: 'MINI-MOD-FROG-HEAD', src: 'https://ooeltztitcjyuvsqjrls.supabase.co/storage/v1/object/public/NFTs/MINI-MOD-FROG-HEAD.png', hint: 'frog head' },
+    { name: 'MINI-MOD-GOAT-HEAD', src: 'https://ooeltztitcjyuvsqjrls.supabase.co/storage/v1/object/public/NFTs/MINI-MOD-GOAT-HEAD.png', hint: 'goat head' },
+    { name: 'MINI-MOD-GORILLA-HEAD', src: 'https://ooeltztitcjyuvsqjrls.supabase.co/storage/v1/object/public/NFTs/MINI-MOD-GORILLA-HEAD.png', hint: 'gorilla head' },
+    { name: 'MINI-MOD-LION-HEAD', src: 'https://ooeltztitcjyuvsqjrls.supabase.co/storage/v1/object/public/NFTs/MINI-MOD-LION-HEAD.png', hint: 'lion head' },
+    { name: 'MINI-MOD-PARROT-HEAD', src: 'https://ooeltztitcjyuvsqjrls.supabase.co/storage/v1/object/public/NFTs/MINI-MOD-PARROT-HEAD.png', hint: 'parrot head' },
+    { name: 'MINI-MOD-PUPPY-HEAD', src: 'https://ooeltztitcjyuvsqjrls.supabase.co/storage/v1/object/public/NFTs/MINI-MOD-PUPPY-HEAD.png', hint: 'puppy head' },
+    { name: 'MINI-MOD-SNAKE-HEAD', src: 'https://ooeltztitcjyuvsqjrls.supabase.co/storage/v1/object/public/NFTs/MINI-MOD-SNAKE-HEAD.png', hint: 'snake head' },
+    { name: 'MINI-MOD-SPACE-FROG', src: 'https://ooeltztitcjyuvsqjrls.supabase.co/storage/v1/object/public/NFTs/MINI-MOD-SPACE-FROG.png', hint: 'space frog' },
+    { name: 'MINI-MOD-WOLF-HEAD', src: 'https://ooeltztitcjyuvsqjrls.supabase.co/storage/v1/object/public/NFTs/ChatGPT%20Image%20Jul%209,%202025,%2004_36_44%20PM.png', hint: 'wolf head' },
   ];
 
   const wallets = [
@@ -299,6 +318,18 @@ export default function Home() {
       setHoodieCurrent(hoodieApi.selectedScrollSnap())
     })
   }, [hoodieApi])
+
+  useEffect(() => {
+    if (!nftApi) {
+      return
+    }
+    setNftCount(nftApi.scrollSnapList().length)
+    setNftCurrent(nftApi.selectedScrollSnap())
+
+    nftApi.on("select", () => {
+      setNftCurrent(nftApi.selectedScrollSnap())
+    })
+  }, [nftApi])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -548,13 +579,31 @@ export default function Home() {
                         </nav>
                         <div className="p-6 border-t border-gray-700 space-y-4">
                             <Button
-                                onClick={() => setIsWalletDialogOpen(true)}
+                                onClick={() => {
+                                    const mobileMenuCloseButton = document.querySelector('[data-radix-dialog-close]');
+                                    if (mobileMenuCloseButton instanceof HTMLElement) {
+                                        mobileMenuCloseButton.click();
+                                    }
+                                    setIsWalletDialogOpen(true);
+                                }}
                                 disabled={connectionState === 'connected'} 
                                 className="w-full bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-bold rounded-lg text-sm hover:from-cyan-500 hover:to-blue-600 disabled:opacity-70 disabled:cursor-not-allowed">
                                 {connectionState === 'connected' ? 'Connected' : 'Connect Wallet'}
                             </Button>
                             <div className="flex items-center justify-center space-x-2">
-                                <AuthButton isMobile={true}/>
+                                <Button
+                                  onClick={() => {
+                                      const mobileMenuCloseButton = document.querySelector('[data-radix-dialog-close]');
+                                      if (mobileMenuCloseButton instanceof HTMLElement) {
+                                          mobileMenuCloseButton.click();
+                                      }
+                                      setIsAuthDialogOpen(true);
+                                  }}
+                                  variant="ghost"
+                                  className="text-white p-2 flex items-center gap-2 justify-center w-full hover:bg-gray-700/80"
+                                >
+                                    <User className="h-5 w-5" />
+                                </Button>
                                 <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Instagram className="h-5 w-5" /></Button>
                                 <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Youtube className="h-5 w-5" /></Button>
                                 <Button variant="ghost" size="icon" className="text-white hover:bg-gray-700/80 p-2"><Facebook className="h-5 w-5" /></Button>
@@ -690,7 +739,54 @@ export default function Home() {
               </div>
             </TabsContent>
             <TabsContent value="nfts">
-              <p className="text-center text-white py-20">NFTs will be available soon.</p>
+              <Carousel 
+                setApi={setNftApi} 
+                plugins={[nftAutoplay.current]}
+                opts={{
+                  align: "start",
+                  loop: true,
+                }}
+                className="w-full"
+              >
+                <CarouselContent>
+                  {nfts.map((nft, index) => (
+                    <CarouselItem key={index} className="basis-full md:basis-1/2 lg:basis-1/3">
+                      <div className="p-1 h-full">
+                        <div className="flex flex-col h-full">
+                          <div className="bg-white p-4 flex-grow flex items-center justify-center aspect-square border">
+                            <Image
+                              src={nft.src}
+                              alt={nft.name}
+                              width={400}
+                              height={400}
+                              className="object-contain max-h-full"
+                              data-ai-hint={nft.hint}
+                            />
+                          </div>
+                          <div className="py-4">
+                            <p className="text-center text-white text-base uppercase tracking-widest">{nft.name}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+              <div className="flex items-center justify-center space-x-2 pt-8">
+                {Array.from({ length: nftCount }).map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => nftApi?.scrollTo(i)}
+                    className={`h-3 w-3 rounded-full transition-colors ${i === nftCurrent ? 'bg-white' : 'bg-zinc-600 hover:bg-zinc-400'}`}
+                    aria-label={`Go to NFT slide ${i + 1}`}
+                  />
+                ))}
+              </div>
+               <div className="text-center pt-8">
+                <Button className="bg-[#383838] hover:bg-[#4a4a4a] text-white font-bold py-2 px-8 rounded-md text-xs uppercase tracking-widest">
+                  See All
+                </Button>
+              </div>
             </TabsContent>
           </Tabs>
         </div>
@@ -848,3 +944,6 @@ export default function Home() {
     </div>
   );
 }
+
+    
+    
